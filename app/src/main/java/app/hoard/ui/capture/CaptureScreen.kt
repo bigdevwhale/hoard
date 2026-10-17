@@ -131,12 +131,15 @@ fun CaptureScreen(data: HoardData, go: Go) {
         return
     }
 
+    val perms = remember {
+        listOfNotNull(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO, if (android.os.Build.VERSION.SDK_INT < 29 && data.settings.toGallery) Manifest.permission.WRITE_EXTERNAL_STORAGE else null).toTypedArray()
+    }
     var granted by remember { mutableStateOf(ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) }
     val ask = rememberLauncherForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { r ->
         granted = r[Manifest.permission.CAMERA] == true
     }
     LaunchedEffect(Unit) {
-        if (!granted) ask.launch(arrayOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO))
+        if (!granted) ask.launch(perms)
     }
 
     Box(Modifier.fillMaxSize().background(Color.Black)) {
@@ -148,7 +151,7 @@ fun CaptureScreen(data: HoardData, go: Go) {
         ) {
             Text(stringResource(R.string.capture_no_camera), style = UType.Sub.copy(textAlign = TextAlign.Center, color = Color.White))
             Spacer(Modifier.height(16.dp))
-            SoftButton(stringResource(R.string.capture_allow), { ask.launch(arrayOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO)) })
+            SoftButton(stringResource(R.string.capture_allow), { ask.launch(perms) })
             Spacer(Modifier.height(10.dp))
             SoftButton(stringResource(R.string.capture_gallery), gallery, icon = Icons.Rounded.PhotoLibrary)
         }

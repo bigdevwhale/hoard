@@ -154,6 +154,12 @@
     <!-- Halls -->
     <string name="halls_title">The halls</string>
     <string name="halls_all">All</string>
+    <string name="halls_view_art">Treasures</string>
+    <string name="halls_view_photos">Photos</string>
+    <string name="halls_newest">Newest</string>
+    <string name="halls_oldest">Oldest</string>
+    <string name="set_gallery">Save to the gallery</string>
+    <string name="set_gallery_hint">What the camera catches also goes to the phone\'s gallery, in the Hoard album.</string>
     <string name="halls_empty">Nothing here yet.</string>
     <plurals name="halls_sub">
         <item quantity="one">%d treasure in the cave</item>

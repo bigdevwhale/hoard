@@ -130,7 +130,7 @@ fun TreasureScreen(id: Long, data: HoardData, go: Go) {
             IconButton(onClick = { deleting = true }) { Icon(Icons.Rounded.Delete, stringResource(R.string.treasure_delete), tint = U.c.muted) }
         }
         when {
-            t.inForge(data.now) -> Locked(stringResource(R.string.treasure_in_forge), stringResource(R.string.forge_cools_at, Instant.ofEpochMilli(t.revealAt).atZone(data.zone).toLocalTime().format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT))))
+            t.inForge(data.now) -> Forging(t, stringResource(R.string.treasure_in_forge), stringResource(R.string.forge_cools_at, Instant.ofEpochMilli(t.revealAt).atZone(data.zone).toLocalTime().format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT))))
             t.sealed(data.now) -> Locked(stringResource(R.string.treasure_sealed), stringResource(R.string.chest_opens, Instant.ofEpochMilli(t.sealedUntil!!).atZone(data.zone).toLocalDate().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG))))
             else -> Details(t, data) { viewing = true }
         }
@@ -152,6 +152,21 @@ private fun Locked(title: String, text: String) {
         Spacer(Modifier.height(16.dp))
         Text(title, style = UType.Title.copy(textAlign = TextAlign.Center))
         Spacer(Modifier.height(8.dp))
+        Text(text, style = UType.Sub.copy(textAlign = TextAlign.Center))
+    }
+}
+
+/** Still in the forge: the moment itself can be seen, the treasure comes out in the morning. */
+@Composable
+private fun Forging(t: Treasure, title: String, text: String) {
+    val still = rememberStill(t.media)
+    Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(20.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+        still?.let {
+            Image(it.asImageBitmap(), null, Modifier.fillMaxWidth().aspectRatio(it.width / it.height.toFloat().coerceAtLeast(1f)).clip(U.RLg), contentScale = ContentScale.Crop)
+        }
+        Spacer(Modifier.height(18.dp))
+        Text(title, style = UType.Title.copy(textAlign = TextAlign.Center))
+        Spacer(Modifier.height(6.dp))
         Text(text, style = UType.Sub.copy(textAlign = TextAlign.Center))
     }
 }

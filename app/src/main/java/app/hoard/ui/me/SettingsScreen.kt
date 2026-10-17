@@ -115,6 +115,7 @@ fun SettingsScreen(data: HoardData, go: Go) {
                 SwitchRow(stringResource(R.string.set_night), stringResource(R.string.set_night_hint), s.forge == ForgeMode.NIGHT, { on -> set { st -> st.copy(forge = if (on) ForgeMode.NIGHT else ForgeMode.INSTANT) } })
                 if (s.forge == ForgeMode.NIGHT) InfoRow(Icons.Rounded.Schedule, stringResource(R.string.set_forge_at), "%02d:%02d".format(s.forgeAt / 60, s.forgeAt % 60), onClick = { timeOpen = true })
                 SwitchRow(stringResource(R.string.set_notify), stringResource(R.string.set_notify_hint), s.notify, { on -> set { st -> st.copy(notify = on) } })
+                SwitchRow(stringResource(R.string.set_gallery), stringResource(R.string.set_gallery_hint), s.toGallery, { on -> set { st -> st.copy(toGallery = on) } })
                 SwitchRow(stringResource(R.string.set_runes), stringResource(R.string.set_runes_hint), s.runes, { on -> set { st -> st.copy(runes = on) } }, U.c.rune)
             }
 

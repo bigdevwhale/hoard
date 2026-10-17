@@ -168,6 +168,12 @@
     <!-- Halls -->
     <string name="halls_title">Залы</string>
     <string name="halls_all">Все</string>
+    <string name="halls_view_art">Сокровища</string>
+    <string name="halls_view_photos">Фото</string>
+    <string name="halls_newest">Новые</string>
+    <string name="halls_oldest">Старые</string>
+    <string name="set_gallery">Сохранять в галерею</string>
+    <string name="set_gallery_hint">То, что поймала камера, попадает и в галерею телефона, в альбом Hoard.</string>
     <string name="halls_empty">Здесь пока пусто.</string>
     <plurals name="halls_sub">
         <item quantity="one">%d сокровище в пещере</item>

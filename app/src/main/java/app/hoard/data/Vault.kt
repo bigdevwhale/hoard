@@ -31,11 +31,14 @@ class Vault(private val context: Context) {
     private fun stillFile(media: String) = File(stills, media.substringBeforeLast('.') + ".jpg")
 
     /** A fresh file in the cache for the camera to write into. */
-    fun scratch(ext: String): File = File(context.cacheDir, "capture").apply { mkdirs() }.let { File(it, "m-" + System.currentTimeMillis() + "." + ext) }
+    fun scratch(ext: String, prefix: String = "m-"): File = File(context.cacheDir, "capture").apply { mkdirs() }.let { File(it, prefix + System.currentTimeMillis() + "." + ext) }
+
+    /** Picked from the gallery (so it's there already), rather than caught by the camera. */
+    fun fromGallery(f: File) = f.name.startsWith("g-")
 
     /** Copies a picked photo or clip into the cache, so it can be looked at before it goes to the forge. */
     fun importToScratch(uri: Uri, video: Boolean): File? = runCatching {
-        val out = scratch(if (video) "mp4" else "jpg")
+        val out = scratch(if (video) "mp4" else "jpg", "g-")
         context.contentResolver.openInputStream(uri)?.use { input -> FileOutputStream(out).use { input.copyTo(it) } } ?: return null
         out
     }.getOrNull()
@@ -121,6 +124,45 @@ class Vault(private val context: Context) {
         stills.listFiles()?.forEach { it.delete() }
         cache.evictAll()
     }
+
+    /**
+     * Puts a copy of a fresh capture into the phone's gallery (Pictures/Hoard or Movies/Hoard), at full
+     * size, as it came from the camera. Returns false when it couldn't (no permission on old Android).
+     */
+    fun toGallery(src: File, video: Boolean, takenAt: Long): Boolean = runCatching {
+        val name = "Hoard_" + SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(java.util.Date(takenAt)) + if (video) ".mp4" else ".jpg"
+        val mime = if (video) "video/mp4" else "image/jpeg"
+        if (android.os.Build.VERSION.SDK_INT >= 29) {
+            val resolver = context.contentResolver
+            val values = android.content.ContentValues().apply {
+                put(android.provider.MediaStore.MediaColumns.DISPLAY_NAME, name)
+                put(android.provider.MediaStore.MediaColumns.MIME_TYPE, mime)
+                put(android.provider.MediaStore.MediaColumns.RELATIVE_PATH, (if (video) android.os.Environment.DIRECTORY_MOVIES else android.os.Environment.DIRECTORY_PICTURES) + "/Hoard")
+                put(android.provider.MediaStore.MediaColumns.DATE_TAKEN, takenAt)
+                put(android.provider.MediaStore.MediaColumns.IS_PENDING, 1)
+            }
+            val collection = if (video) android.provider.MediaStore.Video.Media.getContentUri(android.provider.MediaStore.VOLUME_EXTERNAL_PRIMARY)
+            else android.provider.MediaStore.Images.Media.getContentUri(android.provider.MediaStore.VOLUME_EXTERNAL_PRIMARY)
+            val uri = resolver.insert(collection, values) ?: return false
+            try {
+                resolver.openOutputStream(uri)?.use { out -> src.inputStream().use { it.copyTo(out) } } ?: error("no stream")
+                values.clear()
+                values.put(android.provider.MediaStore.MediaColumns.IS_PENDING, 0)
+                resolver.update(uri, values, null, null)
+            } catch (e: Exception) {
+                resolver.delete(uri, null, null)
+                throw e
+            }
+        } else {
+            if (androidx.core.content.ContextCompat.checkSelfPermission(context, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != android.content.pm.PackageManager.PERMISSION_GRANTED) return false
+            @Suppress("DEPRECATION")
+            val dir = File(android.os.Environment.getExternalStoragePublicDirectory(if (video) android.os.Environment.DIRECTORY_MOVIES else android.os.Environment.DIRECTORY_PICTURES), "Hoard").apply { mkdirs() }
+            val dst = File(dir, name)
+            src.copyTo(dst, overwrite = true)
+            android.media.MediaScannerConnection.scanFile(context, arrayOf(dst.path), arrayOf(mime), null)
+        }
+        true
+    }.getOrDefault(false)
 
     /** Takes in the files of a restored backup; their stills are made again when first needed. */
     fun adopt(from: File) {

@@ -41,6 +41,12 @@ data class Settings(
     val unlocked: Set<String> = emptySet(),
     /** Cave features and dragon stages already celebrated. */
     val seen: Set<String> = emptySet(),
+    /** Also keep a copy of what the camera catches in the phone's gallery. */
+    val toGallery: Boolean = true,
+    /** The halls show the photos themselves rather than the treasure art. */
+    val showPhotos: Boolean = false,
+    /** Newest first in the halls. */
+    val newestFirst: Boolean = true,
 )
 
 class SettingsStore(context: Context) {
@@ -62,6 +68,9 @@ class SettingsStore(context: Context) {
         claimed = this[CLAIMED] ?: emptySet(),
         unlocked = this[UNLOCKED] ?: emptySet(),
         seen = this[SEEN] ?: emptySet(),
+        toGallery = this[TO_GALLERY] ?: true,
+        showPhotos = this[SHOW_PHOTOS] ?: false,
+        newestFirst = this[NEWEST_FIRST] ?: true,
     )
 
     suspend fun now(): Settings = settings.first()
@@ -82,6 +91,9 @@ class SettingsStore(context: Context) {
             it[CLAIMED] = s.claimed
             it[UNLOCKED] = s.unlocked
             it[SEEN] = s.seen
+            it[TO_GALLERY] = s.toGallery
+            it[SHOW_PHOTOS] = s.showPhotos
+            it[NEWEST_FIRST] = s.newestFirst
         }
     }
 
@@ -99,5 +111,8 @@ class SettingsStore(context: Context) {
         val CLAIMED = stringSetPreferencesKey("claimed")
         val UNLOCKED = stringSetPreferencesKey("unlocked")
         val SEEN = stringSetPreferencesKey("seen")
+        val TO_GALLERY = booleanPreferencesKey("to_gallery")
+        val SHOW_PHOTOS = booleanPreferencesKey("show_photos")
+        val NEWEST_FIRST = booleanPreferencesKey("newest_first")
     }
 }

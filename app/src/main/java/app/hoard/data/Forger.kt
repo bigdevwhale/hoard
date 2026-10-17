@@ -40,6 +40,8 @@ object Forger {
         val s = c.settings.now()
         val zone = ZoneId.systemDefault()
         val duration = if (video) c.vault.durationMs(file) else 0L
+        // The full-size original goes to the gallery before the vault keeps its own, smaller copy.
+        if (s.toGallery && !c.vault.fromGallery(file)) c.vault.toGallery(file, video, now)
         val media = c.vault.keep(file, video)
         val t = Treasure(
             kind = (if (video) Kind.MIRROR else o.kind).name,

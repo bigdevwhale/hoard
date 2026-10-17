@@ -4,6 +4,8 @@
     <uses-feature android:name="android.hardware.camera.any" android:required="false" />
 
     <uses-permission android:name="android.permission.CAMERA" />
+    <!-- Copies into the gallery on Android 9 and older; newer versions need no permission. -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="28" />
     <!-- Sound for the clips that become mirrors. -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <!-- The town and the weather runes; coarse is enough. -->

@@ -93,7 +93,8 @@ object DemoSeed {
             val tmp = File(context.cacheDir, "demo-$i.$ext")
             val ok = runCatching { open("demo/${d.photo}.$ext").use { a -> tmp.outputStream().use { a.copyTo(it) } } }.isSuccess
             if (!ok) return@forEachIndexed
-            val at = if (d.forge) now - (90 - i) * 60_000L
+            // The demo's forge was lit last night, so it doesn't eat into today's own moments.
+            val at = if (d.forge) today.minusDays(1).atTime(23, i % 60).atZone(zone).toInstant().toEpochMilli()
             else today.minusDays(d.days.toLong()).atTime(d.hour, (i * 7) % 60).atZone(zone).toInstant().toEpochMilli()
             val reveal = if (d.forge) today.plusDays(1).atTime(7, 0).atZone(zone).toInstant().toEpochMilli() else at + 9 * 3600_000L
             val duration = if (d.video) c.vault.durationMs(tmp) else 0L
