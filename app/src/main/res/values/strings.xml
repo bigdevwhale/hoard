@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Hoard</string>
+    <string name="dragon_default">Your dragon</string>
+    <string name="back">Back</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    <string name="next">Next</string>
+    <string name="nice">Lovely</string>
+
+    <string name="tab_cave">Cave</string>
+    <string name="tab_halls">Halls</string>
+    <string name="tab_chronicle">Chronicle</string>
+    <string name="tab_settings">Lair</string>
+
+    <!-- The forge -->
+    <string name="forge_open">Open the forge</string>
+    <string name="forge_left">%1$d of %2$d today</string>
+    <string name="forge_unlimited">No limit</string>
+    <string name="forge_title">The forge</string>
+    <string name="forge_empty">The forge is cold</string>
+    <string name="forge_empty_text">Put today\'s moment in, and by morning it will be treasure.</string>
+    <string name="forge_put">Light the forge</string>
+    <string name="forge_cools_at">Cools at %s</string>
+    <plurals name="forge_in">
+        <item quantity="one">%d treasure in the forge</item>
+        <item quantity="other">%d treasures in the forge</item>
+    </plurals>
+
+    <!-- Cave -->
+    <string name="cave_cooled">The forge has cooled</string>
+    <plurals name="cave_cooled_text">
+        <item quantity="one">%d treasure is waiting to be unveiled</item>
+        <item quantity="other">%d treasures are waiting to be unveiled</item>
+    </plurals>
+    <string name="cave_unveil">Unveil</string>
+    <string name="cave_empty">The pile is still small. Every day, put up to three moments in the forge: a photo becomes a coin, something special a gem, a milestone a relic, a clip a mirror.</string>
+    <string name="cave_recent">Newest in the pile</string>
+    <string name="cave_count_label">in the pile</string>
+    <plurals name="treasures_count">
+        <item quantity="one">%d treasure</item>
+        <item quantity="other">%d treasures</item>
+    </plurals>
+    <string name="chests_title">Sealed chests</string>
+    <plurals name="chests_count">
+        <item quantity="one">%d chest</item>
+        <item quantity="other">%d chests</item>
+    </plurals>
+    <string name="chest_opens">Opens on %s</string>
+    <string name="chests_text">A sealed treasure can\'t be looked at, not even by you. The rune lock opens on its day.</string>
+
+    <!-- The dragon rolls out an old treasure -->
+    <string name="roll_eyebrow">The dragon stirs</string>
+    <string name="roll_none_title">%s is fast asleep</string>
+    <string name="roll_none_text">The pile is too young yet. In a couple of weeks the dragon will start rolling old treasures out to you.</string>
+    <string name="roll_open">Look closer</string>
+    <plurals name="roll_years">
+        <item quantity="one">%1$s rolled this out of the pile. It was exactly %2$d year ago today.</item>
+        <item quantity="other">%1$s rolled this out of the pile. It was exactly %2$d years ago today.</item>
+    </plurals>
+    <plurals name="roll_days">
+        <item quantity="one">%1$s rolled this out of the pile, from %2$d day ago.</item>
+        <item quantity="other">%1$s rolled this out of the pile, from %2$d days ago.</item>
+    </plurals>
+
+    <!-- The gnomes -->
+    <string name="quest_eyebrow">The gnomes\' errand</string>
+    <string name="quest_done">Done. The gnomes are pleased.</string>
+    <string name="quest_done_text">The gnomes got what they asked for. A new errand comes in a few days.</string>
+    <string name="quest_text">The gnomes trade in moments. Bring them this one and mark it as their errand when you put it in the forge.</string>
+    <string name="quest_reward">pays: %s</string>
+    <string name="quest_reward_text">They pay in materials. This time: %s.</string>
+    <string name="quest_reward_none">You have every material already. The gnomes will just be glad.</string>
+    <string name="quest_go">Go and find it</string>
+    <plurals name="quest_days">
+        <item quantity="one">%d day left</item>
+        <item quantity="other">%d days left</item>
+    </plurals>
+
+    <!-- Capture -->
+    <string name="capture_hint">Tap for a photo · hold for a clip</string>
+    <string name="capture_gallery">From the gallery</string>
+    <string name="capture_flip">Turn the camera</string>
+    <string name="capture_quest">Errand: %s</string>
+    <string name="capture_no_camera">The forge needs the camera to catch moments. You can also take one from the gallery.</string>
+    <string name="capture_allow">Allow the camera</string>
+    <string name="capture_failed">The camera didn\'t catch that. Try again.</string>
+    <string name="capture_hold">Hold a little longer for a clip.</string>
+    <string name="capture_no_video">This phone can\'t take clips here; take a photo, or choose a clip from the gallery.</string>
+    <string name="capture_import_failed">Couldn\'t read that file.</string>
+    <string name="capture_clip_long">A mirror holds up to %d seconds. Choose a shorter clip.</string>
+    <string name="capture_full_title">The forge is full for today</string>
+    <string name="capture_full_text">No more than %d a day: that\'s the rule of the hoard, and it makes you choose. New treasures tomorrow.</string>
+
+    <!-- Mint -->
+    <string name="mint_title">Into the forge</string>
+    <string name="mint_kind">Strike it into</string>
+    <string name="mint_metal">Metal</string>
+    <string name="mint_frame">Frame</string>
+    <string name="mint_stone">Stone</string>
+    <string name="mint_cut">Cut</string>
+    <string name="mint_form">Form</string>
+    <string name="mint_hall">Hall</string>
+    <string name="mint_name">Name and legend</string>
+    <string name="mint_name_hint">A name (or leave it to the dragon)</string>
+    <string name="mint_note_hint">The legend: what happened, who was there…</string>
+    <string name="mint_runes">Runes</string>
+    <string name="mint_place_hint">Place</string>
+    <string name="mint_allow_place">Add the place and the weather</string>
+    <string name="mint_from_past">From the gallery: the moment is dated %s</string>
+    <string name="mint_quest">For the gnomes: «%s»</string>
+    <string name="mint_seal">Seal in a chest</string>
+    <string name="mint_seal_hint">It goes into the cave as a locked chest and opens only on its day.</string>
+    <string name="seal_none">No</string>
+    <string name="seal_month">A month</string>
+    <string name="seal_half">Half a year</string>
+    <string name="seal_year">A year</string>
+    <string name="seal_date">A date…</string>
+    <string name="mint_locked">Locked materials come from the gnomes\' errands.</string>
+    <string name="mint_cools_at">The forge cools at %s. You\'ll see it then.</string>
+    <string name="mint_cools_now">The forge is set to cool at once.</string>
+    <string name="mint_forge">Into the forge</string>
+    <string name="mint_done_eyebrow">In the forge</string>
+    <string name="mint_done_title">The fire is roaring</string>
+    <string name="mint_done_text">%1$s is fanning the flames. At %2$s the forge cools and your treasure will be ready.</string>
+    <string name="mint_done_now">Struck!</string>
+    <string name="mint_done_now_text">Still warm. Let\'s look.</string>
+    <string name="mint_reward">The gnomes paid: %s. It\'s yours to use now.</string>
+
+    <!-- Unveil -->
+    <string name="unveil_eyebrow">From the forge</string>
+    <string name="unveil_sealed_eyebrow">Sealed</string>
+    <string name="unveil_opened_eyebrow">A chest opened</string>
+    <string name="unveil_sealed_title">A sealed chest</string>
+    <string name="unveil_sealed_text">It stays locked until %s.</string>
+    <string name="unveil_opened_text">Sealed on %s.</string>
+    <string name="unveil_look">Look closer</string>
+    <string name="unveil_next">Next</string>
+    <string name="unveil_done">Into the pile</string>
+
+    <!-- Treasure -->
+    <string name="treasure_moment">The moment</string>
+    <string name="treasure_favorite">Favourite</string>
+    <string name="treasure_share">Share</string>
+    <string name="treasure_edit">Edit</string>
+    <string name="treasure_delete">Melt down</string>
+    <string name="treasure_delete_title">Melt it down?</string>
+    <string name="treasure_delete_text">The treasure and its photo or clip will be gone for good.</string>
+    <string name="treasure_in_forge">Still in the forge</string>
+    <string name="treasure_sealed">A sealed chest</string>
+    <string name="treasure_quest">An errand for the gnomes: «%s»</string>
+    <string name="treasure_forged_on">Put in the forge on %s</string>
+
+    <!-- Halls -->
+    <string name="halls_title">The halls</string>
+    <string name="halls_all">All</string>
+    <string name="halls_empty">Nothing here yet.</string>
+    <plurals name="halls_sub">
+        <item quantity="one">%d treasure in the cave</item>
+        <item quantity="other">%d treasures in the cave</item>
+    </plurals>
+    <string name="hall_travels">Travels</string>
+    <string name="hall_kin">Kin</string>
+    <string name="hall_feasts">Feasts</string>
+    <string name="hall_beasts">Beasts</string>
+    <string name="hall_skies">Skies</string>
+    <string name="hall_hearth">Hearth</string>
+    <string name="hall_deeds">Deeds</string>
+    <string name="hall_wonders">Wonders</string>
+    <string name="hall_travels_hint">Roads, towns, new places</string>
+    <string name="hall_kin_hint">The people you love</string>
+    <string name="hall_feasts_hint">Food, drink and celebrations</string>
+    <string name="hall_beasts_hint">Pets and all creatures</string>
+    <string name="hall_skies_hint">Sunsets, clouds and weather</string>
+    <string name="hall_hearth_hint">Home and its small joys</string>
+    <string name="hall_deeds_hint">Feats, firsts and victories</string>
+    <string name="hall_wonders_hint">Everything strange and beautiful</string>
+
+    <!-- Chronicle -->
+    <string name="chronicle_title">Chronicle</string>
+    <plurals name="chronicle_days">
+        <item quantity="one">Treasure on %d day of the year</item>
+        <item quantity="other">Treasure on %d days of the year</item>
+    </plurals>
+    <string name="chronicle_dragon">The dragon</string>
+    <plurals name="chronicle_next_stage">
+        <item quantity="one">Next: %2$s, in %1$d more treasure</item>
+        <item quantity="other">Next: %2$s, in %1$d more treasures</item>
+    </plurals>
+    <string name="chronicle_elder">It can grow no older. It can only grow richer.</string>
+    <string name="chronicle_cave">The cave</string>
+    <string name="chronicle_months">By the dragon\'s calendar</string>
+    <string name="chronicle_empty">No treasures this year yet.</string>
+    <string name="chronicle_pdf">The chronicle of %d, as a PDF</string>
+    <string name="pdf_done">The chronicle is written.</string>
+    <string name="pdf_failed">Couldn\'t write the chronicle.</string>
+    <string name="pdf_title">The chronicle of the hoard of</string>
+    <string name="pdf_footer">Kept in Hoard, a Stillcraft app</string>
+    <plurals name="goal_treasures">
+        <item quantity="one">%d treasure</item>
+        <item quantity="other">%d treasures</item>
+    </plurals>
+    <plurals name="goal_gems">
+        <item quantity="one">%d gem</item>
+        <item quantity="other">%d gems</item>
+    </plurals>
+    <plurals name="goal_relics">
+        <item quantity="one">%d relic</item>
+        <item quantity="other">%d relics</item>
+    </plurals>
+    <plurals name="goal_quests">
+        <item quantity="one">%d errand for the gnomes</item>
+        <item quantity="other">%d errands for the gnomes</item>
+    </plurals>
+    <plurals name="goal_nights">
+        <item quantity="one">%d moment at night</item>
+        <item quantity="other">%d moments at night</item>
+    </plurals>
+    <string name="feat_mushrooms">Glowing mushrooms</string>
+    <string name="feat_stalactites">Stalactites</string>
+    <string name="feat_crystals">A crystal vein</string>
+    <string name="feat_banners">Banners</string>
+    <string name="feat_pool">An underground pool</string>
+    <string name="feat_lantern">The gnomes\' lantern</string>
+    <string name="feat_bats">Bats</string>
+    <string name="feat_bones">A fallen knight</string>
+    <string name="feat_skylight">A crack to the sky</string>
+
+    <!-- Celebrations -->
+    <string name="cel_stage">The dragon grew</string>
+    <string name="cel_stage_text">%s is bigger now: the hoard is too. It sleeps more soundly on a bigger pile.</string>
+    <string name="cel_feature">Something new in the cave</string>
+    <string name="cel_feature_text">The hoard is growing and the cave grows with it. Have a look.</string>
+
+    <!-- Kinds and materials -->
+    <string name="kind_coin">Coin</string>
+    <string name="kind_gem">Gem</string>
+    <string name="kind_relic">Relic</string>
+    <string name="kind_mirror">Mirror</string>
+    <string name="kind_coin_hint">A coin: an everyday moment, struck in metal.</string>
+    <string name="kind_gem_hint">A gem: something special, caught in the facets of a stone.</string>
+    <string name="kind_relic_hint">A relic: a milestone, set into a crown, a sword or a key.</string>
+    <string name="kind_mirror_hint">A mirror: a clip that comes alive in the glass.</string>
+    <string name="metal_gold">Gold</string>
+    <string name="metal_silver">Silver</string>
+    <string name="metal_copper">Copper</string>
+    <string name="metal_rose">Rose gold</string>
+    <string name="metal_mithril">Mithril</string>
+    <string name="metal_obsidian">Dragonglass</string>
+    <string name="metal_star">Star-metal</string>
+    <string name="stone_ruby">Ruby</string>
+    <string name="stone_sapphire">Sapphire</string>
+    <string name="stone_emerald">Emerald</string>
+    <string name="stone_amethyst">Amethyst</string>
+    <string name="stone_topaz">Topaz</string>
+    <string name="stone_diamond">Diamond</string>
+    <string name="stone_moonstone">Moonstone</string>
+    <string name="cut_round">Round</string>
+    <string name="cut_oval">Oval</string>
+    <string name="cut_cushion">Cushion</string>
+    <string name="cut_pear">Pear</string>
+    <string name="cut_heart">Heart</string>
+    <string name="cut_step">Step</string>
+    <string name="relic_crown">Crown</string>
+    <string name="relic_chalice">Chalice</string>
+    <string name="relic_sword">Sword</string>
+    <string name="relic_amulet">Amulet</string>
+    <string name="relic_horn">Horn</string>
+    <string name="relic_key">Key</string>
+    <string name="relic_ring">Ring</string>
+    <string name="relic_lantern">Lantern</string>
+    <string name="matter_gem">%1$s, %2$s cut</string>
+    <string name="matter_relic">%1$s · %2$s</string>
+    <string name="matter_mirror">Mirror · %1$s · %2$d s</string>
+    <string name="hue_emerald">Emerald</string>
+    <string name="hue_crimson">Crimson</string>
+    <string name="hue_sapphire">Sapphire</string>
+    <string name="hue_obsidian">Obsidian</string>
+    <string name="hue_ivory">Pearl</string>
+    <string name="stage_hatchling">Hatchling</string>
+    <string name="stage_young">Young dragon</string>
+    <string name="stage_grown">Grown dragon</string>
+    <string name="stage_elder">Elder wyrm</string>
+
+    <!-- Runes and legends -->
+    <string name="sky_clear">clear</string>
+    <string name="sky_clouds">cloudy</string>
+    <string name="sky_fog">fog</string>
+    <string name="sky_rain">rain</string>
+    <string name="sky_snow">snow</string>
+    <string name="sky_storm">storm</string>
+    <string name="sky_unknown">—</string>
+    <string name="part_dawn">at dawn</string>
+    <string name="part_day">by day</string>
+    <string name="part_dusk">at dusk</string>
+    <string name="part_night">at night</string>
+    <string name="day_of_month">%1$s of %2$s</string>
+    <string name="date_with_year">%1$s, %2$d</string>
+    <string name="title_coin">Coin of the %s</string>
+    <string name="title_gem">Gem of the %s</string>
+    <string name="title_relic">Relic of the %s</string>
+    <string name="title_mirror">Mirror of the %s</string>
+    <string name="verb_coin">Struck on the %s</string>
+    <string name="verb_gem">Cut on the %s</string>
+    <string name="verb_relic">Forged on the %s</string>
+    <string name="verb_mirror">Enchanted on the %s</string>
+    <string-array name="months">
+        <item>Snowfast</item>
+        <item>Stormwind</item>
+        <item>Thawdrip</item>
+        <item>Bloomtide</item>
+        <item>Greengrass</item>
+        <item>Highsun</item>
+        <item>Thunderhold</item>
+        <item>Reaping</item>
+        <item>Goldleaf</item>
+        <item>Leaffall</item>
+        <item>Mistmoon</item>
+        <item>Longnight</item>
+    </string-array>
+    <string-array name="months_of">
+        <item>Snowfast</item>
+        <item>Stormwind</item>
+        <item>Thawdrip</item>
+        <item>Bloomtide</item>
+        <item>Greengrass</item>
+        <item>Highsun</item>
+        <item>Thunderhold</item>
+        <item>Reaping</item>
+        <item>Goldleaf</item>
+        <item>Leaffall</item>
+        <item>Mistmoon</item>
+        <item>Longnight</item>
+    </string-array>
+    <!-- In the order of Quests.ids. -->
+    <string-array name="quests">
+        <item>Something silver</item>
+        <item>Someone laughing</item>
+        <item>Something that will be gone by evening</item>
+        <item>The hands of someone dear</item>
+        <item>Something red</item>
+        <item>Something perfectly round</item>
+        <item>Look up: what\'s above your head</item>
+        <item>Something older than you</item>
+        <item>Something tiny</item>
+        <item>Steam or smoke</item>
+        <item>A reflection</item>
+        <item>A door you\'d like to open</item>
+        <item>An interesting shadow</item>
+        <item>The first light of the day</item>
+        <item>Lights at night</item>
+        <item>An animal that isn\'t yours</item>
+        <item>A line from a book you love</item>
+        <item>Something made by hand</item>
+        <item>A path you\'ve never taken</item>
+        <item>The view from a window</item>
+        <item>Someone\'s handwriting</item>
+        <item>A wild flower</item>
+        <item>Water, in any form</item>
+        <item>Something golden</item>
+        <item>Where music is playing</item>
+        <item>A cloud that looks like something</item>
+        <item>Something in balance</item>
+        <item>Two of a kind</item>
+        <item>Something hidden in plain sight</item>
+        <item>A gift, given or received</item>
+    </string-array>
+
+    <!-- Onboarding -->
+    <string name="onb_title">You are a dragon</string>
+    <string name="onb_text">And a dragon keeps a hoard. Yours is made of moments: every day you carry a few of them into your cave, and they turn into treasure.</string>
+    <string name="onb_coin">A photo becomes a coin, the moment struck in metal.</string>
+    <string name="onb_gem">Something special becomes a gem.</string>
+    <string name="onb_relic">A milestone becomes a relic: a crown, a sword, a key.</string>
+    <string name="onb_mirror">A clip becomes a mirror that comes alive.</string>
+    <string name="onb_name_title">Name your dragon</string>
+    <string name="onb_name_text">It sleeps on your hoard, grows with it, and now and then rolls an old treasure out to you.</string>
+    <string name="onb_name_hint">Its name</string>
+    <string name="onb_rules_title">The forge</string>
+    <string name="onb_rules_text">A few moments a day, no more: that makes you choose what\'s worth keeping. And what goes into the forge cools overnight. You\'ll see your treasures in the morning.</string>
+    <string name="onb_start">Light the forge</string>
+
+    <!-- Settings -->
+    <string name="settings_title">The lair</string>
+    <string name="set_dragon">The dragon</string>
+    <string name="set_forge">The forge</string>
+    <string name="set_limit">Treasures a day</string>
+    <string name="set_limit_hint">Fewer means you choose more carefully.</string>
+    <string name="set_night">Cool overnight</string>
+    <string name="set_night_hint">Treasures appear in the morning, not the moment you take them.</string>
+    <string name="set_forge_at">The forge cools at</string>
+    <string name="set_notify">Tell me when it cools</string>
+    <string name="set_notify_hint">One quiet notice in the morning, and when a chest opens.</string>
+    <string name="set_runes">Runes of place and weather</string>
+    <string name="set_runes_hint">The town and the sky are struck into each treasure. Uses your rough location and asks Open-Meteo about the weather.</string>
+    <string name="set_language">Language</string>
+    <string name="lang_system">As the phone</string>
+    <string name="set_backup">Backup</string>
+    <string name="set_backup_hint">Everything lives only on this phone. A backup is one zip with every photo and clip.</string>
+    <string name="backup_export">Save the hoard</string>
+    <string name="backup_export_hint">To a zip file</string>
+    <string name="backup_import">Restore a hoard</string>
+    <string name="backup_import_hint">From a zip file</string>
+    <string name="backup_import_confirm">The hoard on this phone will be replaced by the one in the file.</string>
+    <string name="backup_import_do">Replace</string>
+    <string name="backup_done">Saved.</string>
+    <string name="backup_failed">Couldn\'t save the backup.</string>
+    <string name="backup_restored">The hoard is back.</string>
+    <string name="backup_bad">That isn\'t a Hoard backup.</string>
+    <string name="about">Hoard %s · a Stillcraft app · free, no ads, no account</string>
+
+    <!-- Notifications -->
+    <string name="channel_forge">The forge</string>
+    <string name="channel_forge_desc">When the forge cools and when a sealed chest opens</string>
+    <string name="notif_forge_title">The forge has cooled</string>
+    <string name="notif_chest_title">A chest has opened</string>
+    <plurals name="notif_forge_text">
+        <item quantity="one">%1$s breathed on the forge: %2$d treasure is ready.</item>
+        <item quantity="other">%1$s breathed on the forge: %2$d treasures are ready.</item>
+    </plurals>
+    <plurals name="notif_chest_text">
+        <item quantity="one">The rune lock gave way: %d chest is open.</item>
+        <item quantity="other">The rune locks gave way: %d chests are open.</item>
+    </plurals>
+</resources>

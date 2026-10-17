@@ -1,0 +1,177 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "6c64c73ca47bd5fb0a726b8e5b076e65",
+    "entities": [
+      {
+        "tableName": "treasures",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `kind` TEXT NOT NULL, `title` TEXT NOT NULL, `note` TEXT NOT NULL, `hall` TEXT NOT NULL, `metal` TEXT NOT NULL, `stone` TEXT NOT NULL, `cut` TEXT NOT NULL, `relic` TEXT NOT NULL, `media` TEXT NOT NULL, `video` INTEGER NOT NULL, `durationMs` INTEGER NOT NULL, `takenAt` INTEGER NOT NULL, `momentAt` INTEGER NOT NULL, `revealAt` INTEGER NOT NULL, `seen` INTEGER NOT NULL, `place` TEXT NOT NULL, `lat` REAL, `lon` REAL, `sky` TEXT NOT NULL, `tempC` INTEGER, `quest` TEXT NOT NULL, `sealedUntil` INTEGER, `opened` INTEGER NOT NULL, `seed` INTEGER NOT NULL, `favorite` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "kind",
+            "columnName": "kind",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "note",
+            "columnName": "note",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hall",
+            "columnName": "hall",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "metal",
+            "columnName": "metal",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "stone",
+            "columnName": "stone",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cut",
+            "columnName": "cut",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "relic",
+            "columnName": "relic",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "media",
+            "columnName": "media",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "video",
+            "columnName": "video",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "durationMs",
+            "columnName": "durationMs",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "takenAt",
+            "columnName": "takenAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "momentAt",
+            "columnName": "momentAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "revealAt",
+            "columnName": "revealAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "seen",
+            "columnName": "seen",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "place",
+            "columnName": "place",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lat",
+            "columnName": "lat",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "lon",
+            "columnName": "lon",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "sky",
+            "columnName": "sky",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tempC",
+            "columnName": "tempC",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "quest",
+            "columnName": "quest",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sealedUntil",
+            "columnName": "sealedUntil",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "opened",
+            "columnName": "opened",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "seed",
+            "columnName": "seed",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "favorite",
+            "columnName": "favorite",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        }
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6c64c73ca47bd5fb0a726b8e5b076e65')"
+    ]
+  }
+}

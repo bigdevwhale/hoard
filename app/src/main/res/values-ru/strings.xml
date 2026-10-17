@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Hoard</string>
+    <string name="dragon_default">Твой дракон</string>
+    <string name="back">Назад</string>
+    <string name="cancel">Отмена</string>
+    <string name="save">Сохранить</string>
+    <string name="next">Дальше</string>
+    <string name="nice">Чудесно</string>
+
+    <string name="tab_cave">Пещера</string>
+    <string name="tab_halls">Залы</string>
+    <string name="tab_chronicle">Летопись</string>
+    <string name="tab_settings">Логово</string>
+
+    <!-- The forge -->
+    <string name="forge_open">Открыть горн</string>
+    <string name="forge_left">%1$d из %2$d сегодня</string>
+    <string name="forge_unlimited">Без лимита</string>
+    <string name="forge_title">Горн</string>
+    <string name="forge_empty">Горн остыл и пуст</string>
+    <string name="forge_empty_text">Положи в него сегодняшний момент, и к утру он станет сокровищем.</string>
+    <string name="forge_put">Разжечь горн</string>
+    <string name="forge_cools_at">Остынет в %s</string>
+    <plurals name="forge_in">
+        <item quantity="one">%d сокровище в горне</item>
+        <item quantity="few">%d сокровища в горне</item>
+        <item quantity="many">%d сокровищ в горне</item>
+        <item quantity="other">%d сокровища в горне</item>
+    </plurals>
+
+    <!-- Cave -->
+    <string name="cave_cooled">Горн остыл</string>
+    <plurals name="cave_cooled_text">
+        <item quantity="one">%d сокровище ждёт, чтобы его достали</item>
+        <item quantity="few">%d сокровища ждут, чтобы их достали</item>
+        <item quantity="many">%d сокровищ ждут, чтобы их достали</item>
+        <item quantity="other">%d сокровища ждут, чтобы их достали</item>
+    </plurals>
+    <string name="cave_unveil">Достать</string>
+    <string name="cave_empty">Куча пока маленькая. Каждый день клади в горн до трёх моментов: фото станет монетой, особенное — самоцветом, веха — реликвией, клип — зеркалом.</string>
+    <string name="cave_recent">Новое в куче</string>
+    <string name="cave_count_label">в куче</string>
+    <plurals name="treasures_count">
+        <item quantity="one">%d сокровище</item>
+        <item quantity="few">%d сокровища</item>
+        <item quantity="many">%d сокровищ</item>
+        <item quantity="other">%d сокровища</item>
+    </plurals>
+    <string name="chests_title">Запечатанные сундуки</string>
+    <plurals name="chests_count">
+        <item quantity="one">%d сундук</item>
+        <item quantity="few">%d сундука</item>
+        <item quantity="many">%d сундуков</item>
+        <item quantity="other">%d сундука</item>
+    </plurals>
+    <string name="chest_opens">Откроется %s</string>
+    <string name="chests_text">Запечатанное сокровище нельзя рассмотреть — даже тебе. Рунный замок откроется в свой день.</string>
+
+    <!-- The dragon rolls out an old treasure -->
+    <string name="roll_eyebrow">Дракон ворочается</string>
+    <string name="roll_none_title">%s крепко спит</string>
+    <string name="roll_none_text">Куча ещё слишком молодая. Через пару недель дракон начнёт выкатывать тебе старые сокровища.</string>
+    <string name="roll_open">Рассмотреть</string>
+    <plurals name="roll_years">
+        <item quantity="one">%1$s выкатил это из кучи. Ровно %2$d год назад.</item>
+        <item quantity="few">%1$s выкатил это из кучи. Ровно %2$d года назад.</item>
+        <item quantity="many">%1$s выкатил это из кучи. Ровно %2$d лет назад.</item>
+        <item quantity="other">%1$s выкатил это из кучи. Ровно %2$d года назад.</item>
+    </plurals>
+    <plurals name="roll_days">
+        <item quantity="one">%1$s выкатил это из кучи. Это было %2$d день назад.</item>
+        <item quantity="few">%1$s выкатил это из кучи. Это было %2$d дня назад.</item>
+        <item quantity="many">%1$s выкатил это из кучи. Это было %2$d дней назад.</item>
+        <item quantity="other">%1$s выкатил это из кучи. Это было %2$d дня назад.</item>
+    </plurals>
+
+    <!-- The gnomes -->
+    <string name="quest_eyebrow">Поручение гномов</string>
+    <string name="quest_done">Выполнено. Гномы довольны.</string>
+    <string name="quest_done_text">Гномы получили, что просили. Новое поручение будет через пару дней.</string>
+    <string name="quest_text">Гномы торгуют моментами. Принеси им этот и отметь его как поручение, когда кладёшь в горн.</string>
+    <string name="quest_reward">награда: %s</string>
+    <string name="quest_reward_text">Платят они материалами. В этот раз — %s.</string>
+    <string name="quest_reward_none">У тебя уже есть все материалы. Гномы просто порадуются.</string>
+    <string name="quest_go">Пойти искать</string>
+    <plurals name="quest_days">
+        <item quantity="one">остался %d день</item>
+        <item quantity="few">осталось %d дня</item>
+        <item quantity="many">осталось %d дней</item>
+        <item quantity="other">осталось %d дня</item>
+    </plurals>
+
+    <!-- Capture -->
+    <string name="capture_hint">Тап — фото · удержание — клип</string>
+    <string name="capture_gallery">Из галереи</string>
+    <string name="capture_flip">Сменить камеру</string>
+    <string name="capture_quest">Поручение: %s</string>
+    <string name="capture_no_camera">Горну нужна камера, чтобы ловить моменты. Можно взять и из галереи.</string>
+    <string name="capture_allow">Разрешить камеру</string>
+    <string name="capture_failed">Камера не поймала. Попробуй ещё раз.</string>
+    <string name="capture_hold">Для клипа держи чуть дольше.</string>
+    <string name="capture_no_video">Здесь этот телефон не снимает клипы: сделай фото или выбери клип из галереи.</string>
+    <string name="capture_import_failed">Не удалось прочитать файл.</string>
+    <string name="capture_clip_long">Зеркало вмещает до %d секунд. Выбери клип покороче.</string>
+    <string name="capture_full_title">На сегодня горн полон</string>
+    <string name="capture_full_text">Правило сокровищницы: не больше %d в день, так приходится выбирать. Новые сокровища — завтра.</string>
+
+    <!-- Mint -->
+    <string name="mint_title">В горн</string>
+    <string name="mint_kind">Во что отчеканить</string>
+    <string name="mint_metal">Металл</string>
+    <string name="mint_frame">Рама</string>
+    <string name="mint_stone">Камень</string>
+    <string name="mint_cut">Огранка</string>
+    <string name="mint_form">Форма</string>
+    <string name="mint_hall">Зал</string>
+    <string name="mint_name">Имя и легенда</string>
+    <string name="mint_name_hint">Название (или доверь дракону)</string>
+    <string name="mint_note_hint">Легенда: что случилось, кто был рядом…</string>
+    <string name="mint_runes">Руны</string>
+    <string name="mint_place_hint">Место</string>
+    <string name="mint_allow_place">Добавить место и погоду</string>
+    <string name="mint_from_past">Из галереи: момент датирован %s</string>
+    <string name="mint_quest">Для гномов: «%s»</string>
+    <string name="mint_seal">Запечатать в сундук</string>
+    <string name="mint_seal_hint">Ляжет в пещеру запертым сундуком и откроется только в свой день.</string>
+    <string name="seal_none">Нет</string>
+    <string name="seal_month">На месяц</string>
+    <string name="seal_half">На полгода</string>
+    <string name="seal_year">На год</string>
+    <string name="seal_date">До даты…</string>
+    <string name="mint_locked">Закрытые материалы дают гномы за поручения.</string>
+    <string name="mint_cools_at">Горн остынет в %s. Тогда и увидишь.</string>
+    <string name="mint_cools_now">Горн настроен остывать сразу.</string>
+    <string name="mint_forge">В горн</string>
+    <string name="mint_done_eyebrow">В горне</string>
+    <string name="mint_done_title">Пламя ревёт</string>
+    <string name="mint_done_text">%1$s раздувает огонь. В %2$s горн остынет, и сокровище будет готово.</string>
+    <string name="mint_done_now">Готово!</string>
+    <string name="mint_done_now_text">Ещё тёплое. Давай посмотрим.</string>
+    <string name="mint_reward">Гномы заплатили: %s. Теперь это твоё.</string>
+
+    <!-- Unveil -->
+    <string name="unveil_eyebrow">Из горна</string>
+    <string name="unveil_sealed_eyebrow">Запечатано</string>
+    <string name="unveil_opened_eyebrow">Сундук открылся</string>
+    <string name="unveil_sealed_title">Запечатанный сундук</string>
+    <string name="unveil_sealed_text">Он останется запертым до %s.</string>
+    <string name="unveil_opened_text">Запечатан %s.</string>
+    <string name="unveil_look">Рассмотреть</string>
+    <string name="unveil_next">Дальше</string>
+    <string name="unveil_done">В кучу</string>
+
+    <!-- Treasure -->
+    <string name="treasure_moment">Момент</string>
+    <string name="treasure_favorite">Любимое</string>
+    <string name="treasure_share">Поделиться</string>
+    <string name="treasure_edit">Изменить</string>
+    <string name="treasure_delete">Переплавить</string>
+    <string name="treasure_delete_title">Переплавить?</string>
+    <string name="treasure_delete_text">Сокровище и его фото или клип исчезнут навсегда.</string>
+    <string name="treasure_in_forge">Ещё в горне</string>
+    <string name="treasure_sealed">Запечатанный сундук</string>
+    <string name="treasure_quest">Поручение гномов: «%s»</string>
+    <string name="treasure_forged_on">Положено в горн %s</string>
+
+    <!-- Halls -->
+    <string name="halls_title">Залы</string>
+    <string name="halls_all">Все</string>
+    <string name="halls_empty">Здесь пока пусто.</string>
+    <plurals name="halls_sub">
+        <item quantity="one">%d сокровище в пещере</item>
+        <item quantity="few">%d сокровища в пещере</item>
+        <item quantity="many">%d сокровищ в пещере</item>
+        <item quantity="other">%d сокровища в пещере</item>
+    </plurals>
+    <string name="hall_travels">Странствия</string>
+    <string name="hall_kin">Близкие</string>
+    <string name="hall_feasts">Пиры</string>
+    <string name="hall_beasts">Звери</string>
+    <string name="hall_skies">Небеса</string>
+    <string name="hall_hearth">Очаг</string>
+    <string name="hall_deeds">Подвиги</string>
+    <string name="hall_wonders">Диковины</string>
+    <string name="hall_travels_hint">Дороги, города, новые места</string>
+    <string name="hall_kin_hint">Люди, которых ты любишь</string>
+    <string name="hall_feasts_hint">Еда, напитки и праздники</string>
+    <string name="hall_beasts_hint">Питомцы и всякое зверьё</string>
+    <string name="hall_skies_hint">Закаты, облака и погода</string>
+    <string name="hall_hearth_hint">Дом и его маленькие радости</string>
+    <string name="hall_deeds_hint">Свершения, первые разы и победы</string>
+    <string name="hall_wonders_hint">Всё странное и красивое</string>
+
+    <!-- Chronicle -->
+    <string name="chronicle_title">Летопись</string>
+    <plurals name="chronicle_days">
+        <item quantity="one">Сокровища в %d день года</item>
+        <item quantity="few">Сокровища в %d дня года</item>
+        <item quantity="many">Сокровища в %d дней года</item>
+        <item quantity="other">Сокровища в %d дня года</item>
+    </plurals>
+    <string name="chronicle_dragon">Дракон</string>
+    <plurals name="chronicle_next_stage">
+        <item quantity="one">Дальше: %2$s, ещё %1$d сокровище</item>
+        <item quantity="few">Дальше: %2$s, ещё %1$d сокровища</item>
+        <item quantity="many">Дальше: %2$s, ещё %1$d сокровищ</item>
+        <item quantity="other">Дальше: %2$s, ещё %1$d сокровища</item>
+    </plurals>
+    <string name="chronicle_elder">Старше ему не стать. Только богаче.</string>
+    <string name="chronicle_cave">Пещера</string>
+    <string name="chronicle_months">По драконьему календарю</string>
+    <string name="chronicle_empty">В этом году сокровищ пока нет.</string>
+    <string name="chronicle_pdf">Летопись %d года в PDF</string>
+    <string name="pdf_done">Летопись написана.</string>
+    <string name="pdf_failed">Не удалось написать летопись.</string>
+    <string name="pdf_title">Летопись сокровищницы дракона</string>
+    <string name="pdf_footer">Сохранено в Hoard, приложении Stillcraft</string>
+    <plurals name="goal_treasures">
+        <item quantity="one">%d сокровище</item>
+        <item quantity="few">%d сокровища</item>
+        <item quantity="many">%d сокровищ</item>
+        <item quantity="other">%d сокровища</item>
+    </plurals>
+    <plurals name="goal_gems">
+        <item quantity="one">%d самоцвет</item>
+        <item quantity="few">%d самоцвета</item>
+        <item quantity="many">%d самоцветов</item>
+        <item quantity="other">%d самоцвета</item>
+    </plurals>
+    <plurals name="goal_relics">
+        <item quantity="one">%d реликвия</item>
+        <item quantity="few">%d реликвии</item>
+        <item quantity="many">%d реликвий</item>
+        <item quantity="other">%d реликвии</item>
+    </plurals>
+    <plurals name="goal_quests">
+        <item quantity="one">%d поручение гномов</item>
+        <item quantity="few">%d поручения гномов</item>
+        <item quantity="many">%d поручений гномов</item>
+        <item quantity="other">%d поручения гномов</item>
+    </plurals>
+    <plurals name="goal_nights">
+        <item quantity="one">%d ночной момент</item>
+        <item quantity="few">%d ночных момента</item>
+        <item quantity="many">%d ночных моментов</item>
+        <item quantity="other">%d ночного момента</item>
+    </plurals>
+    <string name="feat_mushrooms">Светящиеся грибы</string>
+    <string name="feat_stalactites">Сталактиты</string>
+    <string name="feat_crystals">Кристальная жила</string>
+    <string name="feat_banners">Знамёна</string>
+    <string name="feat_pool">Подземное озеро</string>
+    <string name="feat_lantern">Фонарь гномов</string>
+    <string name="feat_bats">Летучие мыши</string>
+    <string name="feat_bones">Павший рыцарь</string>
+    <string name="feat_skylight">Окно в небо</string>
+
+    <!-- Celebrations -->
+    <string name="cel_stage">Дракон подрос</string>
+    <string name="cel_stage_text">%s стал больше — и сокровищница тоже. На большой куче спится крепче.</string>
+    <string name="cel_feature">В пещере что-то новое</string>
+    <string name="cel_feature_text">Сокровищница растёт, а с ней и пещера. Загляни.</string>
+
+    <!-- Kinds and materials -->
+    <string name="kind_coin">Монета</string>
+    <string name="kind_gem">Самоцвет</string>
+    <string name="kind_relic">Реликвия</string>
+    <string name="kind_mirror">Зеркало</string>
+    <string name="kind_coin_hint">Монета: обычный день, отчеканенный в металле.</string>
+    <string name="kind_gem_hint">Самоцвет: что-то особенное, пойманное в гранях камня.</string>
+    <string name="kind_relic_hint">Реликвия: веха, оправленная в корону, меч или ключ.</string>
+    <string name="kind_mirror_hint">Зеркало: клип, который оживает в стекле.</string>
+    <string name="metal_gold">Золото</string>
+    <string name="metal_silver">Серебро</string>
+    <string name="metal_copper">Медь</string>
+    <string name="metal_rose">Розовое золото</string>
+    <string name="metal_mithril">Мифрил</string>
+    <string name="metal_obsidian">Драконье стекло</string>
+    <string name="metal_star">Звёздный металл</string>
+    <string name="stone_ruby">Рубин</string>
+    <string name="stone_sapphire">Сапфир</string>
+    <string name="stone_emerald">Изумруд</string>
+    <string name="stone_amethyst">Аметист</string>
+    <string name="stone_topaz">Топаз</string>
+    <string name="stone_diamond">Алмаз</string>
+    <string name="stone_moonstone">Лунный камень</string>
+    <string name="cut_round">Круг</string>
+    <string name="cut_oval">Овал</string>
+    <string name="cut_cushion">Подушка</string>
+    <string name="cut_pear">Капля</string>
+    <string name="cut_heart">Сердце</string>
+    <string name="cut_step">Ступени</string>
+    <string name="relic_crown">Корона</string>
+    <string name="relic_chalice">Кубок</string>
+    <string name="relic_sword">Меч</string>
+    <string name="relic_amulet">Амулет</string>
+    <string name="relic_horn">Рог</string>
+    <string name="relic_key">Ключ</string>
+    <string name="relic_ring">Перстень</string>
+    <string name="relic_lantern">Фонарь</string>
+    <string name="matter_gem">%1$s, огранка «%2$s»</string>
+    <string name="matter_relic">%1$s · %2$s</string>
+    <string name="matter_mirror">Зеркало · %1$s · %2$d с</string>
+    <string name="hue_emerald">Изумрудный</string>
+    <string name="hue_crimson">Багровый</string>
+    <string name="hue_sapphire">Сапфировый</string>
+    <string name="hue_obsidian">Обсидиановый</string>
+    <string name="hue_ivory">Жемчужный</string>
+    <string name="stage_hatchling">Дракончик</string>
+    <string name="stage_young">Юный дракон</string>
+    <string name="stage_grown">Взрослый дракон</string>
+    <string name="stage_elder">Древний змей</string>
+
+    <!-- Runes and legends -->
+    <string name="sky_clear">ясно</string>
+    <string name="sky_clouds">облачно</string>
+    <string name="sky_fog">туман</string>
+    <string name="sky_rain">дождь</string>
+    <string name="sky_snow">снег</string>
+    <string name="sky_storm">гроза</string>
+    <string name="sky_unknown">—</string>
+    <string name="part_dawn">на рассвете</string>
+    <string name="part_day">днём</string>
+    <string name="part_dusk">в сумерках</string>
+    <string name="part_night">ночью</string>
+    <string name="day_of_month">%1$s %2$s</string>
+    <string name="date_with_year">%1$s %2$d</string>
+    <string name="title_coin">Монета %s</string>
+    <string name="title_gem">Самоцвет %s</string>
+    <string name="title_relic">Реликвия %s</string>
+    <string name="title_mirror">Зеркало %s</string>
+    <string name="verb_coin">Отчеканена %s</string>
+    <string name="verb_gem">Огранён %s</string>
+    <string name="verb_relic">Выкована %s</string>
+    <string name="verb_mirror">Заговорено %s</string>
+    <string-array name="months">
+        <item>Снегостав</item>
+        <item>Вьюжень</item>
+        <item>Капельник</item>
+        <item>Цветень</item>
+        <item>Травень</item>
+        <item>Светозар</item>
+        <item>Грозник</item>
+        <item>Жатвень</item>
+        <item>Златолист</item>
+        <item>Листопад</item>
+        <item>Мглистень</item>
+        <item>Студень</item>
+    </string-array>
+    <string-array name="months_of">
+        <item>Снегостава</item>
+        <item>Вьюженя</item>
+        <item>Капельника</item>
+        <item>Цветеня</item>
+        <item>Травеня</item>
+        <item>Светозара</item>
+        <item>Грозника</item>
+        <item>Жатвеня</item>
+        <item>Златолиста</item>
+        <item>Листопада</item>
+        <item>Мглистеня</item>
+        <item>Студеня</item>
+    </string-array>
+    <!-- In the order of Quests.ids. -->
+    <string-array name="quests">
+        <item>Что-то серебряное</item>
+        <item>Кто-то смеётся</item>
+        <item>То, что исчезнет к вечеру</item>
+        <item>Руки близкого человека</item>
+        <item>Что-то красное</item>
+        <item>Что-то идеально круглое</item>
+        <item>Посмотри вверх: что над головой</item>
+        <item>Что-то старше тебя</item>
+        <item>Что-то крошечное</item>
+        <item>Пар или дым</item>
+        <item>Отражение</item>
+        <item>Дверь, которую хочется открыть</item>
+        <item>Интересная тень</item>
+        <item>Первый свет дня</item>
+        <item>Огни ночью</item>
+        <item>Чужой зверь</item>
+        <item>Строчка из любимой книги</item>
+        <item>Что-то сделанное руками</item>
+        <item>Незнакомая тропа</item>
+        <item>Вид из окна</item>
+        <item>Чей-то почерк</item>
+        <item>Дикий цветок</item>
+        <item>Вода в любом виде</item>
+        <item>Что-то золотое</item>
+        <item>Там, где играет музыка</item>
+        <item>Облако, похожее на что-то</item>
+        <item>Что-то в равновесии</item>
+        <item>Два одинаковых</item>
+        <item>Что-то, спрятанное на виду</item>
+        <item>Подарок — свой или чужой</item>
+    </string-array>
+
+    <!-- Onboarding -->
+    <string name="onb_title">Ты — дракон</string>
+    <string name="onb_text">А у дракона должна быть сокровищница. Твоя — из моментов: каждый день ты относишь в пещеру несколько, и они становятся сокровищами.</string>
+    <string name="onb_coin">Фото становится монетой: момент, отчеканенный в металле.</string>
+    <string name="onb_gem">Особенное становится самоцветом.</string>
+    <string name="onb_relic">Веха — реликвией: короной, мечом, ключом.</string>
+    <string name="onb_mirror">Клип — зеркалом, которое оживает.</string>
+    <string name="onb_name_title">Назови дракона</string>
+    <string name="onb_name_text">Он спит на твоей сокровищнице, растёт вместе с ней и иногда выкатывает тебе старое сокровище.</string>
+    <string name="onb_name_hint">Имя дракона</string>
+    <string name="onb_rules_title">Горн</string>
+    <string name="onb_rules_text">Несколько моментов в день, не больше: так приходится выбирать, что стоит сохранить. А всё, что попало в горн, остывает за ночь. Сокровища ты увидишь утром.</string>
+    <string name="onb_start">Разжечь горн</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Логово</string>
+    <string name="set_dragon">Дракон</string>
+    <string name="set_forge">Горн</string>
+    <string name="set_limit">Сокровищ в день</string>
+    <string name="set_limit_hint">Чем меньше, тем внимательнее выбираешь.</string>
+    <string name="set_night">Остывать за ночь</string>
+    <string name="set_night_hint">Сокровища появляются утром, а не сразу после съёмки.</string>
+    <string name="set_forge_at">Горн остывает в</string>
+    <string name="set_notify">Сообщать, когда остынет</string>
+    <string name="set_notify_hint">Одно тихое уведомление утром — и когда открывается сундук.</string>
+    <string name="set_runes">Руны места и погоды</string>
+    <string name="set_runes_hint">Город и небо вычеканиваются на каждом сокровище. Нужно примерное местоположение; погоду спрашиваем у Open-Meteo.</string>
+    <string name="set_language">Язык</string>
+    <string name="lang_system">Как в телефоне</string>
+    <string name="set_backup">Резервная копия</string>
+    <string name="set_backup_hint">Всё хранится только на этом телефоне. Копия — один zip со всеми фото и клипами.</string>
+    <string name="backup_export">Сохранить сокровищницу</string>
+    <string name="backup_export_hint">В zip-файл</string>
+    <string name="backup_import">Восстановить сокровищницу</string>
+    <string name="backup_import_hint">Из zip-файла</string>
+    <string name="backup_import_confirm">Сокровищница на этом телефоне будет заменена той, что в файле.</string>
+    <string name="backup_import_do">Заменить</string>
+    <string name="backup_done">Сохранено.</string>
+    <string name="backup_failed">Не удалось сохранить копию.</string>
+    <string name="backup_restored">Сокровищница вернулась.</string>
+    <string name="backup_bad">Это не копия Hoard.</string>
+    <string name="about">Hoard %s · приложение Stillcraft · бесплатно, без рекламы и аккаунта</string>
+
+    <!-- Notifications -->
+    <string name="channel_forge">Горн</string>
+    <string name="channel_forge_desc">Когда горн остывает и когда открывается запечатанный сундук</string>
+    <string name="notif_forge_title">Горн остыл</string>
+    <string name="notif_chest_title">Сундук открылся</string>
+    <plurals name="notif_forge_text">
+        <item quantity="one">%1$s дохнул на горн: %2$d сокровище готово.</item>
+        <item quantity="few">%1$s дохнул на горн: %2$d сокровища готовы.</item>
+        <item quantity="many">%1$s дохнул на горн: %2$d сокровищ готово.</item>
+        <item quantity="other">%1$s дохнул на горн: %2$d сокровища готовы.</item>
+    </plurals>
+    <plurals name="notif_chest_text">
+        <item quantity="one">Рунный замок поддался: %d сундук открыт.</item>
+        <item quantity="few">Рунные замки поддались: %d сундука открыты.</item>
+        <item quantity="many">Рунные замки поддались: %d сундуков открыто.</item>
+        <item quantity="other">Рунные замки поддались: %d сундука открыты.</item>
+    </plurals>
+</resources>
