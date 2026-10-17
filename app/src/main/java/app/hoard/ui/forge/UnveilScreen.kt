@@ -1,5 +1,6 @@
 package app.hoard.ui.forge
 
+import app.hoard.ui.theme.engraved
 import app.hoard.ui.tips.HelpButton
 import app.hoard.ui.tips.Tip
 import app.hoard.ui.tips.TipHost
@@ -138,7 +139,7 @@ fun UnveilScreen(data: HoardData, go: Go) {
                     Text(stringResource(R.string.unveil_sealed_text, day), style = UType.Sub.copy(textAlign = TextAlign.Center))
                 }
                 else -> {
-                    Text(T.title(context, t), style = UType.Title.copy(textAlign = TextAlign.Center))
+                    Text(engraved(T.title(context, t)), style = UType.Title.copy(textAlign = TextAlign.Center))
                     Spacer(Modifier.height(4.dp))
                     Text(T.matter(context, t) + " · " + T.hall(context, t.hallOf), style = UType.Small.copy(color = U.c.gold))
                     Spacer(Modifier.height(10.dp))

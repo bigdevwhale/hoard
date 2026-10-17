@@ -43,6 +43,7 @@ object Chronicle {
     fun write(context: Context, uri: Uri, year: Int, all: List<Treasure>, s: Settings, stage: Stage, vault: Vault, zone: ZoneId) {
         val serif = ResourcesCompat.getFont(context, R.font.prata) ?: Typeface.SERIF
         val sans = ResourcesCompat.getFont(context, R.font.nunito_regular) ?: Typeface.SANS_SERIF
+        val lora = ResourcesCompat.getFont(context, R.font.lora_italic) ?: Typeface.SERIF
         val items = all.filter { it.visible(System.currentTimeMillis()) && T.local(it.momentAt, zone).year == year }.sortedBy { it.momentAt }
         val doc = PdfDocument()
         var n = 1
@@ -67,7 +68,7 @@ object Chronicle {
             page { c ->
                 pair.forEachIndexed { i, t ->
                     val top = M + i * (H - 2 * M) / 2f
-                    entry(context, c, t, vault, top, serif, sans)
+                    entry(context, c, t, vault, top, serif, sans, lora)
                 }
             }
         }
@@ -75,7 +76,7 @@ object Chronicle {
         doc.close()
     }
 
-    private fun entry(context: Context, c: Canvas, t: Treasure, vault: Vault, top: Float, serif: Typeface, sans: Typeface) {
+    private fun entry(context: Context, c: Canvas, t: Treasure, vault: Vault, top: Float, serif: Typeface, sans: Typeface, lora: Typeface) {
         val still = vault.still(t.media)
         val art = Art.of(t, still, 64)
         pix(c, art, RectF(M, top + 6f, M + 120f, top + 126f))
@@ -85,9 +86,9 @@ object Chronicle {
             c.drawBitmap(still, src, box, Paint(Paint.FILTER_BITMAP_FLAG))
         }
         var y = top + 140f
-        y = text(c, T.title(context, t), serif, 16f, ink, M, y, W - 2 * M)
+        y = text(c, T.title(context, t), lora, 16f, ink, M, y, W - 2 * M)
         y = text(c, T.matter(context, t) + " · " + T.hall(context, t.hallOf), sans, 9.5f, gold, M, y + 2f, W - 2 * M)
-        y = text(c, T.legend(context, t), serif, 10f, muted, M, y + 4f, W - 2 * M)
+        y = text(c, T.legend(context, t), lora, 10f, muted, M, y + 4f, W - 2 * M)
         if (t.note.isNotBlank()) text(c, t.note, sans, 10f, ink, M, y + 6f, W - 2 * M, maxLines = 5)
     }
 

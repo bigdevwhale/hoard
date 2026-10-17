@@ -1,5 +1,6 @@
 package app.hoard.ui.components
 
+import app.hoard.ui.theme.engraved
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -349,7 +350,7 @@ fun CelebrateDialog(
                 Spacer(Modifier.height(10.dp))
                 Text(eyebrow.uppercase(), style = UType.Eyebrow.copy(color = color))
                 Spacer(Modifier.height(6.dp))
-                Text(title, style = UType.Title.copy(textAlign = androidx.compose.ui.text.style.TextAlign.Center))
+                Text(engraved(title), style = UType.Title.copy(textAlign = androidx.compose.ui.text.style.TextAlign.Center))
                 Spacer(Modifier.height(8.dp))
                 Text(text, style = UType.Sub.copy(textAlign = androidx.compose.ui.text.style.TextAlign.Center))
                 Spacer(Modifier.height(20.dp))

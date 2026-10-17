@@ -9,6 +9,7 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -72,6 +73,19 @@ val Nunito = FontFamily(
 /** Engraved letters for names and titles. */
 val Prata = FontFamily(Font(R.font.prata, FontWeight.Normal))
 
+/** A bookish serif with plain figures, for legends (Prata's 1 reads as an l). */
+val Lora = FontFamily(
+    Font(R.font.lora_regular, FontWeight.Normal),
+    Font(R.font.lora_italic, FontWeight.Normal, androidx.compose.ui.text.font.FontStyle.Italic),
+)
+
+/** Prata text with its figures set in Lora, so "17" never reads as "l7". */
+fun engraved(s: String): androidx.compose.ui.text.AnnotatedString = androidx.compose.ui.text.buildAnnotatedString {
+    s.forEach { ch ->
+        if (ch.isDigit()) withStyle(androidx.compose.ui.text.SpanStyle(fontFamily = Lora)) { append(ch) } else append(ch)
+    }
+}
+
 object U {
     val c: Palette @Composable get() = LocalPalette.current
 
@@ -93,7 +107,7 @@ object UType {
     val Small: TextStyle @Composable get() = TextStyle(fontFamily = Nunito, fontWeight = FontWeight.SemiBold, fontSize = 12.sp, color = U.c.faint)
     val Number: TextStyle @Composable get() = TextStyle(fontFamily = Prata, fontSize = 24.sp, color = U.c.ink, fontFeatureSettings = "lnum, tnum")
     val Button: TextStyle @Composable get() = TextStyle(fontFamily = Nunito, fontWeight = FontWeight.Bold, fontSize = 15.sp)
-    val Legend: TextStyle @Composable get() = TextStyle(fontFamily = Prata, fontSize = 15.sp, lineHeight = 22.sp, color = U.c.muted, fontFeatureSettings = "lnum")
+    val Legend: TextStyle @Composable get() = TextStyle(fontFamily = Lora, fontStyle = androidx.compose.ui.text.font.FontStyle.Italic, fontSize = 15.sp, lineHeight = 22.sp, color = U.c.muted)
 }
 
 @Composable

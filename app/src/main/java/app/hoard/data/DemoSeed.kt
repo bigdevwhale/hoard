@@ -83,7 +83,10 @@ object DemoSeed {
     suspend fun seedIfEmpty(context: Context, c: AppContainer, open: (String) -> java.io.InputStream = { context.assets.open(it) }) {
         val dao = c.db.dao()
         if (dao.all().isNotEmpty()) return
-        val ru = context.resources.configuration.locales[0].language == "ru"
+        // The in-app language, if one is set (AppCompat applies it to activities, not to the application).
+        val tags = androidx.appcompat.app.AppCompatDelegate.getApplicationLocales()
+        val lang = if (!tags.isEmpty) tags[0]!!.language else context.resources.configuration.locales[0].language
+        val ru = lang == "ru"
         val zone = ZoneId.systemDefault()
         val now = System.currentTimeMillis()
         val today = LocalDate.now(zone)

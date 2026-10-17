@@ -1,5 +1,6 @@
 package app.hoard.ui.treasure
 
+import app.hoard.ui.theme.engraved
 import app.hoard.ui.tips.HelpButton
 import app.hoard.ui.tips.Tip
 import app.hoard.ui.tips.TipHost
@@ -194,7 +195,7 @@ private fun Details(t: Treasure, data: HoardData, onPhoto: () -> Unit) {
                 }
             }
         }
-        Text(T.title(context, t), style = UType.Display.copy(textAlign = TextAlign.Center), modifier = Modifier.fillMaxWidth())
+        Text(engraved(T.title(context, t)), style = UType.Display.copy(textAlign = TextAlign.Center), modifier = Modifier.fillMaxWidth())
         Spacer(Modifier.height(6.dp))
         Text(T.matter(context, t), style = UType.Small.copy(color = U.c.gold, textAlign = TextAlign.Center), modifier = Modifier.fillMaxWidth())
         Spacer(Modifier.height(12.dp))

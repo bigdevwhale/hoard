@@ -16,7 +16,7 @@
 
 [English](README.md) · **Русский** · [Изменения](CHANGELOG.md)
 
-<img src="docs/screenshots/overview.png" alt="Hoard на телефоне: пещера со спящим драконом, монета из фото, рубиновое сердце, залы и летопись" width="100%" />
+<img src="docs/screenshots/overview.ru.png" alt="Hoard на телефоне: пещера со спящим драконом, монета из фото, рубиновое сердце, залы и летопись" width="100%" />
 
 </div>
 

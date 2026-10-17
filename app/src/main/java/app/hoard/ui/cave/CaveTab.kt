@@ -1,5 +1,6 @@
 package app.hoard.ui.cave
 
+import app.hoard.ui.theme.engraved
 import app.hoard.ui.tips.HelpButton
 import app.hoard.ui.tips.Tip
 import app.hoard.ui.tips.TipHost
@@ -291,7 +292,7 @@ private fun QuestCard(data: HoardData, onClick: () -> Unit) {
     UCard(onClick = onClick) {
         Text(stringResource(R.string.quest_eyebrow).uppercase(), style = UType.Eyebrow.copy(color = U.c.rune))
         Spacer(Modifier.height(6.dp))
-        Text(T.quest(context, data.quest.id), style = UType.Name)
+        Text(engraved(T.quest(context, data.quest.id)), style = UType.Name)
         Spacer(Modifier.height(4.dp))
         val daysLeft = (data.quest.endsDay - data.today.toEpochDay()).toInt() + 1
         Text(
