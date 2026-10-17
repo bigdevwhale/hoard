@@ -1,5 +1,8 @@
 package app.hoard.ui.treasure
 
+import app.hoard.ui.tips.HelpButton
+import app.hoard.ui.tips.Tip
+import app.hoard.ui.tips.TipHost
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -120,6 +123,7 @@ fun TreasureScreen(id: Long, data: HoardData, go: Go) {
 
     Column(Modifier.fillMaxSize().background(U.c.bg).statusBarsPadding()) {
         TopBar("", onBack = { go.back() }) {
+            HelpButton(Tip.TREASURE)
             if (t.visible(data.now)) {
                 IconButton(onClick = { c.write { db.dao().update(t.copy(favorite = !t.favorite)) } }) {
                     Icon(if (t.favorite) Icons.Rounded.Star else Icons.Rounded.StarBorder, stringResource(R.string.treasure_favorite), tint = if (t.favorite) U.c.gold else U.c.muted)
@@ -136,6 +140,7 @@ fun TreasureScreen(id: Long, data: HoardData, go: Go) {
         }
     }
 
+    if (t.visible(data.now)) TipHost(Tip.TREASURE)
     if (viewing && !t.video) FullPhoto(t) { viewing = false }
     if (editing) EditDialog(t, onDismiss = { editing = false }) { changed -> c.write { db.dao().update(changed) } }
     if (deleting) ConfirmDialog(

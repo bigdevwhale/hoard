@@ -1,5 +1,8 @@
 package app.hoard.ui.cave
 
+import app.hoard.ui.tips.HelpButton
+import app.hoard.ui.tips.Tip
+import app.hoard.ui.tips.TipHost
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -103,6 +106,7 @@ fun CaveTab(data: HoardData, go: Go) {
                 Text(data.stats.total.toString(), style = UType.Number.copy(color = U.c.gold))
                 Text(stringResource(R.string.cave_count_label), style = UType.Small)
             }
+            HelpButton(Tip.CAVE)
         }
         CaveScene(data, awake) { hit ->
             when (hit) {
@@ -165,7 +169,7 @@ fun CaveTab(data: HoardData, go: Go) {
         Sheet.Chests -> ChestsDialog(data) { sheet = null }
         Sheet.Quest -> QuestDialog(data, go) { sheet = null }
         is Sheet.Rolled -> RolledDialog(s.t, data, go) { sheet = null }
-        null -> Celebrations(data)
+        null -> { Celebrations(data); TipHost(Tip.CAVE) }
     }
 }
 

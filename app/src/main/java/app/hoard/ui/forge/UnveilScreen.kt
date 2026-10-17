@@ -1,5 +1,8 @@
 package app.hoard.ui.forge
 
+import app.hoard.ui.tips.HelpButton
+import app.hoard.ui.tips.Tip
+import app.hoard.ui.tips.TipHost
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
@@ -90,6 +93,7 @@ fun UnveilScreen(data: HoardData, go: Go) {
         }
     }
 
+    TipHost(Tip.UNVEIL)
     val appear = remember(t.id) { Animatable(0f) }
     LaunchedEffect(t.id) { appear.snapTo(0f); appear.animateTo(1f, tween(1100, easing = FastOutSlowInEasing)) }
     val f = rememberFrame(8, 5)

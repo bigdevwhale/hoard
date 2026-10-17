@@ -119,7 +119,8 @@ object DemoSeed {
                 hue = Hue.CRIMSON,
                 claimed = claimed,
                 unlocked = Material.rewards.take(claimed.size).map { m -> m.key }.toSet(),
-                seen = Stage.entries.map { s -> "stage:" + s.name }.toSet() + Feature.entries.map { f -> "feat:" + f.name },
+                // Screenshots show the screens, not the hints; "?" still brings each back.
+                seen = Stage.entries.map { s -> "stage:" + s.name }.toSet() + Feature.entries.map { f -> "feat:" + f.name } + app.hoard.ui.tips.Tip.entries.map { t -> t.key },
             )
         }
     }

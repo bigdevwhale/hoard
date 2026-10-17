@@ -428,4 +428,34 @@
         <item quantity="one">The rune lock gave way: %d chest is open.</item>
         <item quantity="other">The rune locks gave way: %d chests are open.</item>
     </plurals>
+
+    <!-- Hints -->
+    <string name="tip_speaker">The dragon says</string>
+    <string name="tip_help">How it works</string>
+    <string name="tip_skip_all">Skip all</string>
+    <string name="tip_got_it">Got it</string>
+    <string name="tip_cave_1_t">This is our cave</string>
+    <string name="tip_cave_1">Everything you keep lies in the pile under me. The newest treasures sit on top: tap one to look at it. The more there are, the bigger the pile and the cave.</string>
+    <string name="tip_cave_2_t">The forge</string>
+    <string name="tip_cave_2">The flame button below is the forge. Tap it, then tap for a photo or hold for a clip. A few moments a day, no more, so choose. The forge cools overnight: in the morning I breathe on it and you see what came out.</string>
+    <string name="tip_cave_3_t">Wake me up</string>
+    <string name="tip_cave_3">Tap me and I\'ll roll an old treasure out of the pile for you. On the day it happened a year ago, that one first. I grow as the hoard grows.</string>
+    <string name="tip_cave_4_t">The gnome</string>
+    <string name="tip_cave_4">The little gnome by the forge brings an errand every three days: "something silver", "a door you\'d like to open". Bring it, and the gnomes pay in rare metals and stones.</string>
+    <string name="tip_capture_t">Catch a moment</string>
+    <string name="tip_capture">Tap the big button for a photo, hold it for a clip up to five seconds. The button on the left takes one from the gallery. What the camera catches is also saved to your gallery, in the Hoard album.</string>
+    <string name="tip_mint_1_t">What will it be?</string>
+    <string name="tip_mint_1">An everyday moment makes a coin. Something special, a gem. A milestone, a relic: a crown, a sword, a key. A clip is always a mirror. Pick the metal or the stone; rarer ones come from the gnomes.</string>
+    <string name="tip_mint_2_t">Its hall and its legend</string>
+    <string name="tip_mint_2">Put it in a hall, give it a name and a few words of legend, or leave the name to me. The runes of place and weather are struck by themselves. Seal it in a chest if it\'s for later.</string>
+    <string name="tip_unveil_t">Out of the forge</string>
+    <string name="tip_unveil">Here is what cooled overnight. Look closer at each one, or send it straight into the pile.</string>
+    <string name="tip_treasure_t">Look closer</string>
+    <string name="tip_treasure">Tap a coin to turn it over: the hall, the runes and the year are on the back. Tilt the phone and a gem catches the light. A mirror plays its clip; tap it for sound. The moment itself is below. The star keeps it among favourites.</string>
+    <string name="tip_halls_t">The halls</string>
+    <string name="tip_halls">Everything you keep, by hall. Switch between the treasures and the photos themselves, newest or oldest first. Fresh captures still in the forge show among the photos.</string>
+    <string name="tip_chronicle_t">The chronicle</string>
+    <string name="tip_chronicle">Your year by my calendar: how much you kept, how close I am to growing, what is still to appear in the cave. At the bottom, the whole year as a PDF book to print.</string>
+    <string name="tip_lair_t">The lair</string>
+    <string name="tip_lair">My name and colour, how many moments a day, when the forge cools, the gallery copy, the runes, and the backup. Save the hoard to a zip now and then: it lives only on this phone.</string>
 </resources>

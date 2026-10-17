@@ -9,4 +9,7 @@ The first release of Hoard: a dragon's hoard of your moments.
 - **The dragon** sleeps on your pile and grows from a hatchling to an elder wyrm. Tap it and it rolls out an old treasure, an anniversary first.
 - **The cave grows** with the hoard: mushrooms, stalactites, crystals, banners, a pool, bats, a fallen knight, a crack to the sky.
 - **Eight halls**, runes of place, weather and time of day, the gnomes' errands that pay in rare metals and stones, and sealed chests that open on their day.
+- **The halls** show the treasures or the photos themselves, newest or oldest first; fresh captures in the forge show among the photos.
+- **Your gallery too:** what the camera catches is also saved to the phone's gallery (Pictures/Hoard, Movies/Hoard); it can be switched off.
+- **Hints on every screen** from the dragon the first time it opens, and a "?" to bring them back.
 - **The chronicle** by the dragon's calendar, and the year as a PDF book. Zip backup, English and Russian.

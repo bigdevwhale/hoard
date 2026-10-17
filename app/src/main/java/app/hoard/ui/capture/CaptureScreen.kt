@@ -1,5 +1,8 @@
 package app.hoard.ui.capture
 
+import app.hoard.ui.tips.HelpButton
+import app.hoard.ui.tips.Tip
+import app.hoard.ui.tips.TipHost
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
@@ -158,6 +161,7 @@ fun CaptureScreen(data: HoardData, go: Go) {
         Row(Modifier.fillMaxWidth().statusBarsPadding().padding(8.dp), verticalAlignment = Alignment.CenterVertically) {
             IconButton(onClick = { go.back() }) { Icon(Icons.Rounded.Close, stringResource(R.string.cancel), tint = Color.White) }
             Spacer(Modifier.weight(1f))
+            HelpButton(Tip.CAPTURE)
             Text(
                 data.left?.let { stringResource(R.string.forge_left, it, data.settings.dailyLimit) } ?: stringResource(R.string.forge_unlimited),
                 style = UType.Small.copy(color = Color.White),
@@ -173,6 +177,7 @@ fun CaptureScreen(data: HoardData, go: Go) {
                     .clip(RoundedCornerShape(12.dp)).background(Color(0x88000000)).padding(horizontal = 12.dp, vertical = 6.dp),
             )
         }
+        TipHost(Tip.CAPTURE)
         message?.let {
             LaunchedEffect(it) { delay(3500); message = null }
             Text(

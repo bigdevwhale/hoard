@@ -1,5 +1,8 @@
 package app.hoard.ui.me
 
+import app.hoard.ui.tips.HelpButton
+import app.hoard.ui.tips.Tip
+import app.hoard.ui.tips.TipHost
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
@@ -85,7 +88,7 @@ fun SettingsScreen(data: HoardData, go: Go) {
     val import = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri -> restoreUri = uri }
 
     Column(Modifier.fillMaxSize().background(U.c.bg).statusBarsPadding()) {
-        TopBar(stringResource(R.string.settings_title), onBack = { go.back() })
+        TopBar(stringResource(R.string.settings_title), onBack = { go.back() }) { HelpButton(Tip.LAIR) }
         Column(Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(horizontal = 16.dp)) {
             SectionTitle(stringResource(R.string.set_dragon))
             UCard {
@@ -146,6 +149,7 @@ fun SettingsScreen(data: HoardData, go: Go) {
         }
     }
 
+    TipHost(Tip.LAIR)
     if (timeOpen) TimeDialog(s.forgeAt, onDismiss = { timeOpen = false }) { m -> set { st -> st.copy(forgeAt = m) } }
     restoreUri?.let { uri ->
         ConfirmDialog(

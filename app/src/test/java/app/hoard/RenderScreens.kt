@@ -12,6 +12,7 @@ import androidx.test.core.app.ApplicationProvider
 import app.hoard.data.DemoSeed
 import app.hoard.data.Settings
 import app.hoard.ui.HoardRoot
+import app.hoard.ui.tips.Tip
 import app.hoard.ui.theme.HoardTheme
 import kotlinx.coroutines.runBlocking
 import org.junit.Rule
@@ -66,6 +67,10 @@ class RenderScreens {
         }
         settle(5000)
         shot("1-cave")
+        Tip.reopened = Tip.CAVE
+        settle(1500)
+        shot("0-tip")
+        tap("Skip all")
         tap("Bike ride to Roztoky")
         shot("2-coin")
         rule.onAllNodesWithContentDescription("Back")[0].performClick()

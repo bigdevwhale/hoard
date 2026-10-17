@@ -25,7 +25,8 @@ android {
         versionCode = (System.getenv("VERSION_CODE") ?: "1").toInt()
         versionName = System.getenv("VERSION_NAME") ?: "1.0.0"
         buildConfigField("boolean", "DEMO", demo.toString())
-        if (demo) applicationIdSuffix = ".demo"
+        // `-Pshots` gives the demo its own package, so screenshots never touch a demo someone is trying out.
+        if (demo) applicationIdSuffix = if (project.hasProperty("shots")) ".shots" else ".demo"
     }
 
     // The demo photos ship only inside the demo build.

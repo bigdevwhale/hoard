@@ -1,5 +1,8 @@
 package app.hoard.ui.forge
 
+import app.hoard.ui.tips.HelpButton
+import app.hoard.ui.tips.Tip
+import app.hoard.ui.tips.TipHost
 import android.Manifest
 import android.graphics.Bitmap
 import androidx.activity.compose.BackHandler
@@ -169,7 +172,7 @@ fun MintScreen(path: String, video: Boolean, data: HoardData, go: Go) {
     }
 
     Column(Modifier.fillMaxSize().background(U.c.bg).statusBarsPadding().imePadding()) {
-        TopBar(stringResource(R.string.mint_title), onBack = { leave() })
+        TopBar(stringResource(R.string.mint_title), onBack = { leave() }) { HelpButton(Tip.MINT) }
         Column(Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(horizontal = 16.dp)) {
             Box(Modifier.fillMaxWidth().height(220.dp).clip(U.RLg).background(U.c.surface), contentAlignment = Alignment.Center) {
                 PixImage(art, Modifier.size(200.dp))
@@ -280,6 +283,7 @@ fun MintScreen(path: String, video: Boolean, data: HoardData, go: Go) {
         }
     }
 
+    if (done == null) TipHost(Tip.MINT)
     if (pickDate) {
         val state = rememberDatePickerState(
             initialSelectedDateMillis = LocalDate.now(data.zone).plusMonths(3).atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli(),

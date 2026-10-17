@@ -1,5 +1,8 @@
 package app.hoard.ui.halls
 
+import app.hoard.ui.tips.HelpButton
+import app.hoard.ui.tips.Tip
+import app.hoard.ui.tips.TipHost
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -90,7 +93,10 @@ fun HallsTab(data: HoardData, go: Go) {
     ) {
         item(span = { GridItemSpan(maxLineSpan) }) {
             Column {
-                Text(stringResource(R.string.halls_title), style = UType.Title, modifier = Modifier.padding(top = 14.dp, start = 4.dp))
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(stringResource(R.string.halls_title), style = UType.Title, modifier = Modifier.weight(1f).padding(top = 14.dp, start = 4.dp))
+                    HelpButton(Tip.HALLS)
+                }
                 Text(
                     hall?.let { T.hallHint(context, it) } ?: pluralStringResource(R.plurals.halls_sub, kept.size, kept.size),
                     style = UType.Muted, modifier = Modifier.padding(start = 4.dp, top = 2.dp, bottom = 12.dp),
@@ -131,6 +137,7 @@ fun HallsTab(data: HoardData, go: Go) {
         }
         items(shown, key = { it.id }) { t -> if (photos) PhotoCell(t, data) { go.treasure(t.id) } else Cell(t, data) { go.treasure(t.id) } }
     }
+    TipHost(Tip.HALLS)
 }
 
 @Composable

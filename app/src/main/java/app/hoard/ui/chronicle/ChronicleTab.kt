@@ -1,5 +1,8 @@
 package app.hoard.ui.chronicle
 
+import app.hoard.ui.tips.HelpButton
+import app.hoard.ui.tips.Tip
+import app.hoard.ui.tips.TipHost
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
@@ -85,6 +88,7 @@ fun ChronicleTab(data: HoardData, go: Go) {
     Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).statusBarsPadding().padding(horizontal = 16.dp)) {
         Row(Modifier.fillMaxWidth().padding(top = 8.dp), verticalAlignment = Alignment.CenterVertically) {
             Text(stringResource(R.string.chronicle_title), style = UType.Title, modifier = Modifier.weight(1f).padding(start = 4.dp))
+            HelpButton(Tip.CHRONICLE)
             IconButton(onClick = { years.lastOrNull { it < year }?.let { year = it } }, enabled = years.any { it < year }) {
                 Icon(Icons.AutoMirrored.Rounded.KeyboardArrowLeft, null, tint = if (years.any { it < year }) U.c.ink else U.c.line)
             }
@@ -159,4 +163,5 @@ fun ChronicleTab(data: HoardData, go: Go) {
         status?.let { Text(it, style = UType.Muted.copy(textAlign = TextAlign.Center), modifier = Modifier.fillMaxWidth().padding(top = 8.dp)) }
         Spacer(Modifier.height(56.dp))
     }
+    TipHost(Tip.CHRONICLE)
 }
