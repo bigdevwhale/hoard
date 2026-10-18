@@ -78,15 +78,15 @@
     </plurals>
 
     <!-- Capture -->
-    <string name="capture_hint">Tap for a photo · hold for a clip</string>
+    <string name="capture_hint">The phone\'s own camera opens; what it catches comes back to the forge.</string>
     <string name="capture_gallery">From the gallery</string>
-    <string name="capture_flip">Turn the camera</string>
+    <string name="capture_photo">Photo</string>
+    <string name="capture_photo_sub">One shot with the phone\'s camera; it becomes a coin, a gem or a relic.</string>
+    <string name="capture_clip">Clip, up to %d s</string>
+    <string name="capture_clip_sub">A few seconds of video; it comes alive in a mirror.</string>
     <string name="capture_quest">Errand: %s</string>
-    <string name="capture_no_camera">The forge needs the camera to catch moments. You can also take one from the gallery.</string>
-    <string name="capture_allow">Allow the camera</string>
+    <string name="capture_no_camera">There\'s no camera app on this phone to catch it with. You can take one from the gallery.</string>
     <string name="capture_failed">The camera didn\'t catch that. Try again.</string>
-    <string name="capture_hold">Hold a little longer for a clip.</string>
-    <string name="capture_no_video">This phone can\'t take clips here; take a photo, or choose a clip from the gallery.</string>
     <string name="capture_import_failed">Couldn\'t read that file.</string>
     <string name="capture_clip_long">A mirror holds up to %d seconds. Choose a shorter clip.</string>
     <string name="capture_full_title">The forge is full for today</string>
@@ -437,13 +437,13 @@
     <string name="tip_cave_1_t">This is our cave</string>
     <string name="tip_cave_1">Everything you keep lies in the pile under me. The newest treasures sit on top: tap one to look at it. The more there are, the bigger the pile and the cave.</string>
     <string name="tip_cave_2_t">The forge</string>
-    <string name="tip_cave_2">The flame button below is the forge. Tap it, then tap for a photo or hold for a clip. A few moments a day, no more, so choose. The forge cools overnight: in the morning I breathe on it and you see what came out.</string>
+    <string name="tip_cave_2">The flame button below is the forge. Tap it, then choose a photo or a clip: the phone\'s own camera opens. A few moments a day, no more, so choose. The forge cools overnight: in the morning I breathe on it and you see what came out.</string>
     <string name="tip_cave_3_t">Wake me up</string>
     <string name="tip_cave_3">Tap me and I\'ll roll an old treasure out of the pile for you. On the day it happened a year ago, that one first. I grow as the hoard grows.</string>
     <string name="tip_cave_4_t">The gnome</string>
     <string name="tip_cave_4">The little gnome by the forge brings an errand every three days: "something silver", "a door you\'d like to open". Bring it, and the gnomes pay in rare metals and stones.</string>
     <string name="tip_capture_t">Catch a moment</string>
-    <string name="tip_capture">Tap the big button for a photo, hold it for a clip up to five seconds. The button on the left takes one from the gallery. What the camera catches is also saved to your gallery, in the Hoard album.</string>
+    <string name="tip_capture">Photo opens the phone\'s own camera for a shot, Clip for a few seconds of video, up to five. From the gallery takes one you already have. What the camera catches is also saved to your gallery, in the Hoard album.</string>
     <string name="tip_mint_1_t">What will it be?</string>
     <string name="tip_mint_1">An everyday moment makes a coin. Something special, a gem. A milestone, a relic: a crown, a sword, a key. A clip is always a mirror. Pick the metal or the stone; rarer ones come from the gnomes.</string>
     <string name="tip_mint_2_t">Its hall and its legend</string>

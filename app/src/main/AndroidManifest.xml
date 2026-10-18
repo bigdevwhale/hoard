@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <uses-feature android:name="android.hardware.camera.any" android:required="false" />
+    <!-- Moments are caught by the phone's own camera app, so the app itself asks for no camera permission. -->
+    <queries>
+        <intent>
+            <action android:name="android.media.action.IMAGE_CAPTURE" />
+        </intent>
+        <intent>
+            <action android:name="android.media.action.VIDEO_CAPTURE" />
+        </intent>
+    </queries>
 
-    <uses-permission android:name="android.permission.CAMERA" />
     <!-- Copies into the gallery on Android 9 and older; newer versions need no permission. -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="28" />
-    <!-- Sound for the clips that become mirrors. -->
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <!-- The town and the weather runes; coarse is enough. -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <!-- Only to ask Open-Meteo what the weather is. -->
@@ -50,7 +55,7 @@
             </intent-filter>
         </receiver>
 
-        <!-- Shares a treasure's photo or clip with other apps. -->
+        <!-- Shares a treasure's photo or clip with other apps, and lets the camera app write a capture. -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.files"

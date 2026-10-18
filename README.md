@@ -44,7 +44,7 @@ Everything is pixel art painted by the phone itself from your photo, so no two t
 
 | | Feature | How it works |
 |---|---|---|
-| 🔥 | **The forge** | Tap for a photo, hold for a clip, or take one from the gallery (it keeps its own date). Choose what it becomes, the hall, a name and a legend. It cools at 7:00 (or when you say); one quiet notice then. |
+| 🔥 | **The forge** | A photo or a clip up to five seconds with the phone's own camera, or one from the gallery (it keeps its own date). Choose what it becomes, the hall, a name and a legend. It cools at 7:00 (or when you say); one quiet notice then. |
 | 🐉 | **The dragon** | Name it, pick its colour. It sleeps on the pile and grows from a hatchling to an elder wyrm. Tap it: it stirs and rolls out an old treasure, first of all one from this day a year ago. |
 | 🏰 | **The cave** | Glowing mushrooms, stalactites, a crystal vein, banners, an underground pool, bats, a fallen knight, a crack to the sky: each appears as the hoard grows. |
 | 🏛️ | **Eight halls** | Travels, Kin, Feasts, Beasts, Skies, Hearth, Deeds, Wonders, with a filter for favourites. |
@@ -66,7 +66,7 @@ No account, no analytics, no ads. Photos and clips are kept in the app's own sto
 ./gradlew testDebugUnitTest -Prender    # paints the art and the screens to app/build/art
 ```
 
-Kotlin, Jetpack Compose, Room, DataStore, CameraX, Media3. All the art is generated at runtime from shaded shapes (`ui/pix`).
+Kotlin, Jetpack Compose, Room, DataStore, Media3. Photos and clips come from the phone's own camera app, so Hoard needs no camera permission. All the art is generated at runtime from shaded shapes (`ui/pix`).
 
 Demo photos are from [Unsplash](https://unsplash.com) via [Lorem Picsum](https://picsum.photos), used under the Unsplash License, and ship only in the demo build.
 

@@ -4,35 +4,20 @@ import app.hoard.ui.tips.HelpButton
 import app.hoard.ui.tips.Tip
 import app.hoard.ui.tips.TipHost
 import android.Manifest
-import android.annotation.SuppressLint
+import android.content.ActivityNotFoundException
+import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
+import android.provider.MediaStore
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.camera.core.CameraSelector
-import androidx.camera.core.ImageCapture
-import androidx.camera.core.ImageCaptureException
-import androidx.camera.core.Preview
-import androidx.camera.lifecycle.ProcessCameraProvider
-import androidx.camera.video.FileOutputOptions
-import androidx.camera.video.Quality
-import androidx.camera.video.QualitySelector
-import androidx.camera.video.Recorder
-import androidx.camera.video.Recording
-import androidx.camera.video.VideoCapture
-import androidx.camera.video.VideoRecordEvent
-import androidx.camera.view.PreviewView
-import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.tween
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -40,61 +25,62 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Close
-import androidx.compose.material.icons.rounded.Flip
+import androidx.compose.material.icons.rounded.PhotoCamera
 import androidx.compose.material.icons.rounded.PhotoLibrary
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
+import androidx.compose.material.icons.rounded.Videocam
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.StrokeCap
-import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.core.content.FileProvider
 import app.hoard.R
 import app.hoard.container
 import app.hoard.ui.Go
 import app.hoard.ui.HoardData
 import app.hoard.ui.T
+import app.hoard.ui.components.IconDisc
 import app.hoard.ui.components.PrimaryButton
 import app.hoard.ui.components.SoftButton
+import app.hoard.ui.components.TopBar
+import app.hoard.ui.components.UCard
 import app.hoard.ui.theme.U
 import app.hoard.ui.theme.UType
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
 
-/** How long a mirror can hold: a clip recorded here, and the longest one taken from the gallery. */
+/** How long a mirror can hold: a clip shot here, and the longest one taken from the gallery. */
 const val CLIP_MS = 5_000L
 const val CLIP_MAX_IMPORT_MS = 30_000L
+
+/** The phone's own video camera, asked to stop at a mirror's length (not every camera app listens). */
+private class CaptureClip : ActivityResultContracts.CaptureVideo() {
+    override fun createIntent(context: Context, input: Uri): Intent =
+        super.createIntent(context, input).putExtra(MediaStore.EXTRA_DURATION_LIMIT, (CLIP_MS / 1000).toInt())
+}
 
 @Composable
 fun CaptureScreen(data: HoardData, go: Go) {
@@ -102,6 +88,8 @@ fun CaptureScreen(data: HoardData, go: Go) {
     val c = context.container
     val scope = rememberCoroutineScope()
     var message by remember { mutableStateOf<String?>(null) }
+    // The file the camera app is writing into; it survives the app being put away meanwhile.
+    var pending by rememberSaveable { mutableStateOf<String?>(null) }
 
     val pick = rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
         if (uri == null) return@rememberLauncherForActivityResult
@@ -115,6 +103,37 @@ fun CaptureScreen(data: HoardData, go: Go) {
                 return@launch
             }
             go.mint(f.path, video)
+        }
+    }
+
+    /** What came back from the camera app: nothing (put away), too long a clip, or a moment for the forge. */
+    fun caught(ok: Boolean, video: Boolean) {
+        val f = pending?.let(::File) ?: return
+        pending = null
+        if (!ok || !f.exists() || f.length() == 0L) { f.delete(); return }
+        if (!video) { go.mint(f.path, false); return }
+        scope.launch {
+            if (withContext(Dispatchers.IO) { c.vault.durationMs(f) } > CLIP_MAX_IMPORT_MS) {
+                f.delete()
+                message = context.getString(R.string.capture_clip_long, (CLIP_MAX_IMPORT_MS / 1000).toInt())
+            } else go.mint(f.path, true)
+        }
+    }
+
+    val photo = rememberLauncherForActivityResult(ActivityResultContracts.TakePicture()) { caught(it, false) }
+    val clip = rememberLauncherForActivityResult(CaptureClip()) { caught(it, true) }
+
+    fun shoot(video: Boolean) {
+        val f = c.vault.scratch(if (video) "mp4" else "jpg")
+        val uri = runCatching { FileProvider.getUriForFile(context, context.packageName + ".files", f) }.getOrNull()
+            ?: run { message = context.getString(R.string.capture_failed); return }
+        pending = f.path
+        try {
+            if (video) clip.launch(uri) else photo.launch(uri)
+        } catch (_: ActivityNotFoundException) {
+            pending = null
+            f.delete()
+            message = context.getString(R.string.capture_no_camera)
         }
     }
 
@@ -134,48 +153,53 @@ fun CaptureScreen(data: HoardData, go: Go) {
         return
     }
 
-    val perms = remember {
-        listOfNotNull(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO, if (android.os.Build.VERSION.SDK_INT < 29 && data.settings.toGallery) Manifest.permission.WRITE_EXTERNAL_STORAGE else null).toTypedArray()
-    }
-    var granted by remember { mutableStateOf(ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) }
-    val ask = rememberLauncherForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { r ->
-        granted = r[Manifest.permission.CAMERA] == true
-    }
+    // Copies into the gallery need this on Android 9 and older.
+    val askStorage = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) {}
     LaunchedEffect(Unit) {
-        if (!granted) ask.launch(perms)
+        if (android.os.Build.VERSION.SDK_INT < 29 && data.settings.toGallery &&
+            ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+        ) askStorage.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
     }
 
-    Box(Modifier.fillMaxSize().background(Color.Black)) {
-        val gallery = { pick.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageAndVideo)) }
-        if (granted) Camera(go, gallery, onError = { message = it })
-        else Column(
-            Modifier.align(Alignment.Center).padding(28.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            Text(stringResource(R.string.capture_no_camera), style = UType.Sub.copy(textAlign = TextAlign.Center, color = Color.White))
-            Spacer(Modifier.height(16.dp))
-            SoftButton(stringResource(R.string.capture_allow), { ask.launch(perms) })
-            Spacer(Modifier.height(10.dp))
-            SoftButton(stringResource(R.string.capture_gallery), gallery, icon = Icons.Rounded.PhotoLibrary)
-        }
-        Row(Modifier.fillMaxWidth().statusBarsPadding().padding(8.dp), verticalAlignment = Alignment.CenterVertically) {
-            IconButton(onClick = { go.back() }) { Icon(Icons.Rounded.Close, stringResource(R.string.cancel), tint = Color.White) }
-            Spacer(Modifier.weight(1f))
-            HelpButton(Tip.CAPTURE)
-            Text(
-                data.left?.let { stringResource(R.string.forge_left, it, data.settings.dailyLimit) } ?: stringResource(R.string.forge_unlimited),
-                style = UType.Small.copy(color = Color.White),
-                modifier = Modifier.clip(RoundedCornerShape(50)).background(Color(0x66000000)).padding(horizontal = 12.dp, vertical = 6.dp),
-            )
-            Spacer(Modifier.width(12.dp))
-        }
-        if (!data.questDone) {
-            Text(
-                stringResource(R.string.capture_quest, T.quest(context, data.quest.id)),
-                style = UType.Small.copy(color = U.c.rune, textAlign = TextAlign.Center),
-                modifier = Modifier.align(Alignment.TopCenter).statusBarsPadding().padding(top = 60.dp, start = 24.dp, end = 24.dp)
-                    .clip(RoundedCornerShape(12.dp)).background(Color(0x88000000)).padding(horizontal = 12.dp, vertical = 6.dp),
-            )
+    Box(Modifier.fillMaxSize().background(U.c.bg)) {
+        Column(Modifier.fillMaxSize().statusBarsPadding().navigationBarsPadding()) {
+            TopBar(stringResource(R.string.forge_title), onBack = { go.back() }) {
+                HelpButton(Tip.CAPTURE)
+                Text(
+                    data.left?.let { stringResource(R.string.forge_left, it, data.settings.dailyLimit) } ?: stringResource(R.string.forge_unlimited),
+                    style = UType.Small.copy(color = U.c.gold),
+                    modifier = Modifier.clip(RoundedCornerShape(50)).background(U.c.goldSoft).padding(horizontal = 12.dp, vertical = 6.dp),
+                )
+                Spacer(Modifier.width(10.dp))
+            }
+            Column(
+                Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(horizontal = 16.dp),
+                verticalArrangement = Arrangement.Center,
+            ) {
+                if (!data.questDone) {
+                    Text(
+                        stringResource(R.string.capture_quest, T.quest(context, data.quest.id)),
+                        style = UType.Small.copy(color = U.c.rune, textAlign = TextAlign.Center),
+                        modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(12.dp)).background(U.c.runeSoft).padding(horizontal = 12.dp, vertical = 8.dp),
+                    )
+                    Spacer(Modifier.height(16.dp))
+                }
+                Choice(Icons.Rounded.PhotoCamera, stringResource(R.string.capture_photo), stringResource(R.string.capture_photo_sub), U.c.gold, U.c.goldSoft) { shoot(false) }
+                Spacer(Modifier.height(12.dp))
+                Choice(
+                    Icons.Rounded.Videocam, stringResource(R.string.capture_clip, (CLIP_MS / 1000).toInt()), stringResource(R.string.capture_clip_sub),
+                    U.c.gem, U.c.gemSoft,
+                ) { shoot(true) }
+                Spacer(Modifier.height(20.dp))
+                SoftButton(
+                    stringResource(R.string.capture_gallery),
+                    { pick.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageAndVideo)) },
+                    Modifier.fillMaxWidth(), icon = Icons.Rounded.PhotoLibrary,
+                )
+                Spacer(Modifier.height(14.dp))
+                Text(stringResource(R.string.capture_hint), style = UType.Muted.copy(textAlign = TextAlign.Center), modifier = Modifier.fillMaxWidth())
+                Spacer(Modifier.height(16.dp))
+            }
         }
         TipHost(Tip.CAPTURE)
         message?.let {
@@ -188,124 +212,18 @@ fun CaptureScreen(data: HoardData, go: Go) {
     }
 }
 
-@SuppressLint("MissingPermission")
+/** One big way to catch a moment: an icon, what it is, and a line on what happens. */
 @Composable
-private fun Camera(go: Go, onGallery: () -> Unit, onError: (String) -> Unit) {
-    val context = LocalContext.current
-    val owner = LocalLifecycleOwner.current
-    val vault = context.container.vault
-    val scope = rememberCoroutineScope()
-    var back by remember { mutableStateOf(true) }
-    val preview = remember { PreviewView(context).apply { scaleType = PreviewView.ScaleType.FILL_CENTER } }
-    var image by remember { mutableStateOf<ImageCapture?>(null) }
-    var video by remember { mutableStateOf<VideoCapture<Recorder>?>(null) }
-    var recording by remember { mutableStateOf<Recording?>(null) }
-    var busy by remember { mutableStateOf(false) }
-    val progress = remember { Animatable(0f) }
-    var stopper by remember { mutableStateOf<Job?>(null) }
-
-    DisposableEffect(back) {
-        val future = ProcessCameraProvider.getInstance(context)
-        future.addListener({
-            val provider = future.get()
-            val selector = if (back) CameraSelector.DEFAULT_BACK_CAMERA else CameraSelector.DEFAULT_FRONT_CAMERA
-            val p = Preview.Builder().build().also { it.surfaceProvider = preview.surfaceProvider }
-            val ic = ImageCapture.Builder().setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY).build()
-            val vc = VideoCapture.withOutput(Recorder.Builder().setQualitySelector(QualitySelector.from(Quality.HD, androidx.camera.video.FallbackStrategy.lowerQualityOrHigherThan(Quality.SD))).build())
-            provider.unbindAll()
-            // Some phones can't run photo and video together; then clips are left out.
-            val withVideo = runCatching { provider.bindToLifecycle(owner, selector, p, ic, vc) }.isSuccess
-            if (!withVideo) runCatching { provider.bindToLifecycle(owner, selector, p, ic) }
-            image = ic
-            video = if (withVideo) vc else null
-        }, ContextCompat.getMainExecutor(context))
-        onDispose {
-            recording?.stop()
-            runCatching { ProcessCameraProvider.getInstance(context).get().unbindAll() }
-        }
-    }
-
-    fun photo() {
-        val ic = image ?: return
-        if (busy) return
-        busy = true
-        val f = vault.scratch("jpg")
-        ic.takePicture(ImageCapture.OutputFileOptions.Builder(f).build(), ContextCompat.getMainExecutor(context), object : ImageCapture.OnImageSavedCallback {
-            override fun onImageSaved(output: ImageCapture.OutputFileResults) { busy = false; go.mint(f.path, false) }
-            override fun onError(exception: ImageCaptureException) { busy = false; onError(context.getString(R.string.capture_failed)) }
-        })
-    }
-
-    fun stop() {
-        stopper?.cancel()
-        recording?.stop()
-        recording = null
-    }
-
-    fun record() {
-        val vc = video ?: run { onError(context.getString(R.string.capture_no_video)); return }
-        if (busy || recording != null) return
-        val f = vault.scratch("mp4")
-        val started = System.currentTimeMillis()
-        val audio = ContextCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED
-        val pending = vc.output.prepareRecording(context, FileOutputOptions.Builder(f).build()).let { if (audio) it.withAudioEnabled() else it }
-        recording = pending.start(ContextCompat.getMainExecutor(context)) { e ->
-            if (e is VideoRecordEvent.Finalize) {
-                scope.launch { progress.snapTo(0f) }
-                if (!e.hasError() || e.error == VideoRecordEvent.Finalize.ERROR_DURATION_LIMIT_REACHED) {
-                    if (System.currentTimeMillis() - started < 700) { f.delete(); onError(context.getString(R.string.capture_hold)) }
-                    else go.mint(f.path, true)
-                } else { f.delete(); onError(context.getString(R.string.capture_failed)) }
+private fun Choice(icon: ImageVector, title: String, sub: String, color: Color, soft: Color, onClick: () -> Unit) {
+    UCard(onClick = onClick, padding = PaddingValues(20.dp)) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            IconDisc(icon, 56.dp, color, soft)
+            Spacer(Modifier.width(16.dp))
+            Column(Modifier.weight(1f)) {
+                Text(title, style = UType.Strong.copy(color = color))
+                Spacer(Modifier.height(2.dp))
+                Text(sub, style = UType.Muted)
             }
         }
-        stopper = scope.launch {
-            progress.snapTo(0f)
-            progress.animateTo(1f, tween(CLIP_MS.toInt(), easing = LinearEasing))
-            stop()
-        }
-    }
-
-    Box(Modifier.fillMaxSize()) {
-        AndroidView({ preview }, Modifier.fillMaxSize())
-        Row(
-            Modifier.align(Alignment.BottomCenter).fillMaxWidth().navigationBarsPadding().padding(bottom = 36.dp),
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Box(Modifier.size(52.dp).clip(CircleShape).background(Color(0x55000000)).clickable { if (recording == null) onGallery() }, contentAlignment = Alignment.Center) {
-                Icon(Icons.Rounded.PhotoLibrary, stringResource(R.string.capture_gallery), tint = Color.White)
-            }
-            Spacer(Modifier.width(40.dp))
-            Box(
-                Modifier.size(84.dp).pointerInput(image, video) {
-                    detectTapGestures(
-                        onTap = { photo() },
-                        onLongPress = { record() },
-                        onPress = {
-                            tryAwaitRelease()
-                            if (recording != null) stop()
-                        },
-                    )
-                },
-                contentAlignment = Alignment.Center,
-            ) {
-                val rec = recording != null
-                Canvas(Modifier.fillMaxSize()) {
-                    val w = 5.dp.toPx()
-                    drawCircle(Color.White, size.minDimension / 2 - w / 2, style = Stroke(w))
-                    if (rec) drawArc(Color(0xFFFF5A4E), -90f, 360f * progress.value, false, Offset(w / 2, w / 2), Size(size.width - w, size.height - w), style = Stroke(w, cap = StrokeCap.Round))
-                }
-                Box(Modifier.size(if (rec) 34.dp else 64.dp).clip(if (rec) RoundedCornerShape(8.dp) else CircleShape).background(if (rec) Color(0xFFFF5A4E) else Color(0xFFFFE2A0)).border(1.dp, Color(0x33000000), CircleShape))
-            }
-            Spacer(Modifier.width(40.dp))
-            Box(Modifier.size(52.dp).clip(CircleShape).background(Color(0x55000000)).clickable { if (recording == null) back = !back }, contentAlignment = Alignment.Center) {
-                Icon(Icons.Rounded.Flip, stringResource(R.string.capture_flip), tint = Color.White)
-            }
-        }
-        Text(
-            stringResource(R.string.capture_hint),
-            style = UType.Small.copy(color = Color(0xCCFFFFFF), textAlign = TextAlign.Center),
-            modifier = Modifier.align(Alignment.BottomCenter).navigationBarsPadding().padding(bottom = 10.dp),
-        )
     }
 }

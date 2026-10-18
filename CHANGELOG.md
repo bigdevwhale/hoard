@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.1.0] - 2026-10-18
+
+- **The phone's own camera:** the forge now opens your phone's camera app for a photo or a clip up to five seconds, with everything it can do (zoom, focus, night mode). Hoard no longer asks for the camera or the microphone.
+
 ## [1.0.0] - 2026-10-17
 
 The first release of Hoard: a dragon's hoard of your moments.
