@@ -74,6 +74,8 @@ fun SettingsScreen(data: HoardData, go: Go) {
     val s = data.settings
     var name by remember { mutableStateOf(s.dragonName) }
     var timeOpen by remember { mutableStateOf(false) }
+    /** 1 edits the start of the reminder window, 2 its end. */
+    var remindTime by remember { mutableStateOf(0) }
     var status by remember { mutableStateOf<String?>(null) }
     var restoreUri by remember { mutableStateOf<android.net.Uri?>(null) }
     fun set(change: (Settings) -> Settings) = c.write { settings.update(change) }
@@ -118,6 +120,28 @@ fun SettingsScreen(data: HoardData, go: Go) {
                 SwitchRow(stringResource(R.string.set_night), stringResource(R.string.set_night_hint), s.forge == ForgeMode.NIGHT, { on -> set { st -> st.copy(forge = if (on) ForgeMode.NIGHT else ForgeMode.INSTANT) } })
                 if (s.forge == ForgeMode.NIGHT) InfoRow(Icons.Rounded.Schedule, stringResource(R.string.set_forge_at), "%02d:%02d".format(s.forgeAt / 60, s.forgeAt % 60), onClick = { timeOpen = true })
                 SwitchRow(stringResource(R.string.set_notify), stringResource(R.string.set_notify_hint), s.notify, { on -> set { st -> st.copy(notify = on) } })
+            }
+
+            SectionTitle(stringResource(R.string.set_remind))
+            UCard {
+                Text(stringResource(R.string.set_remind_count), style = UType.Body)
+                Text(stringResource(R.string.set_remind_hint), style = UType.Muted)
+                Spacer(Modifier.height(8.dp))
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    listOf(0, 1, 2, 3, 5).forEach { n -> Chip(if (n == 0) stringResource(R.string.set_remind_off) else n.toString(), s.remindCount == n, { set { st -> st.copy(remindCount = n) } }) }
+                }
+                if (s.remindCount > 0) {
+                    Spacer(Modifier.height(4.dp))
+                    InfoRow(Icons.Rounded.Schedule, stringResource(if (s.remindCount == 1) R.string.set_remind_at else R.string.set_remind_from), "%02d:%02d".format((if (s.remindCount == 1) s.remindTo else s.remindFrom) / 60, (if (s.remindCount == 1) s.remindTo else s.remindFrom) % 60), onClick = { remindTime = if (s.remindCount == 1) 2 else 1 })
+                    if (s.remindCount > 1) InfoRow(Icons.Rounded.Schedule, stringResource(R.string.set_remind_to), "%02d:%02d".format(s.remindTo / 60, s.remindTo % 60), onClick = { remindTime = 2 })
+                    Text(
+                        stringResource(R.string.set_remind_times, app.hoard.domain.Reminders.times(s).joinToString(", ") { "%02d:%02d".format(it / 60, it % 60) }),
+                        style = UType.Small,
+                    )
+                }
+            }
+
+            UCard(Modifier.padding(top = 10.dp)) {
                 SwitchRow(stringResource(R.string.set_gallery), stringResource(R.string.set_gallery_hint), s.toGallery, { on -> set { st -> st.copy(toGallery = on) } })
                 SwitchRow(stringResource(R.string.set_runes), stringResource(R.string.set_runes_hint), s.runes, { on -> set { st -> st.copy(runes = on) } }, U.c.rune)
             }
@@ -150,6 +174,8 @@ fun SettingsScreen(data: HoardData, go: Go) {
     }
 
     TipHost(Tip.LAIR)
+    if (remindTime == 1) TimeDialog(s.remindFrom, onDismiss = { remindTime = 0 }) { m -> set { st -> st.copy(remindFrom = m, remindTo = maxOf(st.remindTo, m)) } }
+    if (remindTime == 2) TimeDialog(s.remindTo, onDismiss = { remindTime = 0 }) { m -> set { st -> st.copy(remindTo = m, remindFrom = minOf(st.remindFrom, m)) } }
     if (timeOpen) TimeDialog(s.forgeAt, onDismiss = { timeOpen = false }) { m -> set { st -> st.copy(forgeAt = m) } }
     restoreUri?.let { uri ->
         ConfirmDialog(

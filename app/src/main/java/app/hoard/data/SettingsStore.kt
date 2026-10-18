@@ -47,6 +47,11 @@ data class Settings(
     val showPhotos: Boolean = false,
     /** Newest first in the halls. */
     val newestFirst: Boolean = true,
+    /** Reminders a day to catch a moment, while today's forge has room; 0 for none. */
+    val remindCount: Int = 2,
+    /** The window they are spread over, minutes after midnight. */
+    val remindFrom: Int = 12 * 60,
+    val remindTo: Int = 20 * 60,
 )
 
 class SettingsStore(context: Context) {
@@ -71,6 +76,9 @@ class SettingsStore(context: Context) {
         toGallery = this[TO_GALLERY] ?: true,
         showPhotos = this[SHOW_PHOTOS] ?: false,
         newestFirst = this[NEWEST_FIRST] ?: true,
+        remindCount = this[REMIND_COUNT] ?: 2,
+        remindFrom = this[REMIND_FROM] ?: 12 * 60,
+        remindTo = this[REMIND_TO] ?: 20 * 60,
     )
 
     suspend fun now(): Settings = settings.first()
@@ -94,6 +102,9 @@ class SettingsStore(context: Context) {
             it[TO_GALLERY] = s.toGallery
             it[SHOW_PHOTOS] = s.showPhotos
             it[NEWEST_FIRST] = s.newestFirst
+            it[REMIND_COUNT] = s.remindCount
+            it[REMIND_FROM] = s.remindFrom
+            it[REMIND_TO] = s.remindTo
         }
     }
 
@@ -114,5 +125,8 @@ class SettingsStore(context: Context) {
         val TO_GALLERY = booleanPreferencesKey("to_gallery")
         val SHOW_PHOTOS = booleanPreferencesKey("show_photos")
         val NEWEST_FIRST = booleanPreferencesKey("newest_first")
+        val REMIND_COUNT = intPreferencesKey("remind_count")
+        val REMIND_FROM = intPreferencesKey("remind_from")
+        val REMIND_TO = intPreferencesKey("remind_to")
     }
 }

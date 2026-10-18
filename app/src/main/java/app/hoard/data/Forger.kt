@@ -74,6 +74,7 @@ object Forger {
             c.settings.update { it.copy(claimed = it.claimed + o.quest.key, unlocked = it.unlocked + listOfNotNull(reward?.key)) }
         }
         c.changed()
+        app.hoard.notify.Alarms.clearReminder(c.context)
         return t.copy(id = id) to reward
     }
 

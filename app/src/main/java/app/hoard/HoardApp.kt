@@ -14,7 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 
-class AppContainer(private val context: Context) {
+class AppContainer(val context: Context) {
     val db = HoardDatabase.create(context)
     val settings = SettingsStore(context)
     val vault = Vault(context)

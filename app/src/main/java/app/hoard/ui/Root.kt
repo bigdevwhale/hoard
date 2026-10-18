@@ -147,7 +147,7 @@ fun HoardRoot(settings: Settings) {
         container.scope.launch { container.changed() }
     }
     LaunchedEffect(settings.onboarded) {
-        if (settings.onboarded && settings.notify && Build.VERSION.SDK_INT >= 33 && !Alarms.canNotify(context) && !BuildConfig.DEMO) {
+        if (settings.onboarded && (settings.notify || settings.remindCount > 0) && Build.VERSION.SDK_INT >= 33 && !Alarms.canNotify(context) && !BuildConfig.DEMO) {
             askPermission.launch(Manifest.permission.POST_NOTIFICATIONS)
         }
     }

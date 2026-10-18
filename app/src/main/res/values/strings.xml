@@ -458,4 +458,31 @@
     <string name="tip_chronicle">Your year by my calendar: how much you kept, how close I am to growing, what is still to appear in the cave. At the bottom, the whole year as a PDF book to print.</string>
     <string name="tip_lair_t">The lair</string>
     <string name="tip_lair">My name and colour, how many moments a day, when the forge cools, the gallery copy, the runes, and the backup. Save the hoard to a zip now and then: it lives only on this phone.</string>
+
+    <!-- Reminders -->
+    <string name="channel_remind">Reminders</string>
+    <string name="channel_remind_desc">A nudge to catch a moment while today\'s forge has room</string>
+    <string name="remind_quest">The gnomes are waiting: %s</string>
+    <string name="remind_empty">Nothing in today\'s forge yet.</string>
+    <string name="set_remind">Reminders</string>
+    <string name="set_remind_count">Reminders a day</string>
+    <string name="set_remind_hint">The dragon nudges you to catch a moment, only while today\'s forge has room.</string>
+    <string name="set_remind_off">Off</string>
+    <string name="set_remind_at">At</string>
+    <string name="set_remind_from">From</string>
+    <string name="set_remind_to">Until</string>
+    <string name="set_remind_times">Today: %s</string>
+    <plurals name="remind_left">
+        <item quantity="one">Today\'s forge has room for %d more.</item>
+        <item quantity="other">Today\'s forge has room for %d more.</item>
+    </plurals>
+    <string-array name="remind_lines">
+        <item>%s opens one eye: what is worth keeping today?</item>
+        <item>The forge is warm. %s is waiting for today\'s moment.</item>
+        <item>%s sniffs the air: something today smells like treasure.</item>
+        <item>What from today would you like to find in the pile a year from now?</item>
+        <item>%s is counting coins and would like one more.</item>
+        <item>Light in a window, a face, a cup, a road: %s will take any of them.</item>
+        <item>%s stirs on the pile. There\'s still room in the forge.</item>
+    </string-array>
 </resources>

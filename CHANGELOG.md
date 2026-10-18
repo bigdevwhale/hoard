@@ -3,6 +3,7 @@
 ## [1.1.0] - 2026-10-18
 
 - **The phone's own camera:** the forge now opens your phone's camera app for a photo or a clip up to five seconds, with everything it can do (zoom, focus, night mode). Hoard no longer asks for the camera or the microphone.
+- **Reminders to catch a moment:** the dragon nudges you while today's forge still has room. Choose how many a day (off, 1, 2, 3 or 5) and the hours they are spread over in the lair; by default two, at 12:00 and 20:00. Every other one points at the gnomes' errand.
 
 ## [1.0.0] - 2026-10-17
 

@@ -492,4 +492,33 @@
     <string name="tip_chronicle">Твой год по моему календарю: сколько сохранено, скоро ли я подрасту, что ещё появится в пещере. Внизу — весь год книгой в PDF для печати.</string>
     <string name="tip_lair_t">Логово</string>
     <string name="tip_lair">Моё имя и цвет, сколько моментов в день, когда остывает горн, копия в галерею, руны и резервная копия. Иногда сохраняй сокровищницу в zip: она живёт только на этом телефоне.</string>
+
+    <!-- Reminders -->
+    <string name="channel_remind">Напоминания</string>
+    <string name="channel_remind_desc">Напоминание поймать момент, пока в сегодняшнем горне есть место</string>
+    <string name="remind_quest">Гномы ждут: %s</string>
+    <string name="remind_empty">В сегодняшнем горне пока пусто.</string>
+    <string name="set_remind">Напоминания</string>
+    <string name="set_remind_count">Напоминаний в день</string>
+    <string name="set_remind_hint">Дракон напомнит поймать момент, только пока в сегодняшнем горне есть место.</string>
+    <string name="set_remind_off">Выкл</string>
+    <string name="set_remind_at">В</string>
+    <string name="set_remind_from">С</string>
+    <string name="set_remind_to">До</string>
+    <string name="set_remind_times">Сегодня: %s</string>
+    <plurals name="remind_left">
+        <item quantity="one">В сегодняшнем горне ещё %d место.</item>
+        <item quantity="few">В сегодняшнем горне ещё %d места.</item>
+        <item quantity="many">В сегодняшнем горне ещё %d мест.</item>
+        <item quantity="other">В сегодняшнем горне ещё %d места.</item>
+    </plurals>
+    <string-array name="remind_lines">
+        <item>%s приоткрыл глаз: что сегодня стоит сохранить?</item>
+        <item>Горн тёплый. %s ждёт сегодняшний момент.</item>
+        <item>%s принюхивается: сегодня что-то пахнет сокровищем.</item>
+        <item>Что из этого дня стоит найти в куче через год?</item>
+        <item>%s пересчитывает монеты и хочет ещё одну.</item>
+        <item>Свет в окне, лицо, чашка, дорога — %s возьмёт любое.</item>
+        <item>%s ворочается на куче. В горне ещё есть место.</item>
+    </string-array>
 </resources>

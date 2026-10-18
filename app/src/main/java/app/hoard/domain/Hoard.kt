@@ -130,3 +130,31 @@ object Roll {
         return if (d.month == today.month && d.dayOfMonth == today.dayOfMonth) today.year - d.year else 0
     }
 }
+
+/** The day's reminders to catch a moment: [Settings.remindCount] of them, spread evenly over the window. */
+object Reminders {
+    /** Minutes after midnight for each reminder of a day. One reminder rings at the end of the window. */
+    fun times(s: Settings): List<Int> {
+        val n = s.remindCount
+        if (n <= 0) return emptyList()
+        val from = s.remindFrom
+        val to = if (s.remindTo > from) s.remindTo else from
+        if (n == 1) return listOf(to)
+        return List(n) { i -> from + (to - from) * i / (n - 1) }.distinct()
+    }
+
+    /** The next reminder strictly after [now], today or tomorrow. */
+    fun next(s: Settings, now: LocalDateTime): LocalDateTime? {
+        val ts = times(s)
+        if (ts.isEmpty()) return null
+        val today = now.toLocalDate()
+        return ts.map { today.atTime(it / 60, it % 60) }.firstOrNull { it.isAfter(now) }
+            ?: today.plusDays(1).atTime(ts[0] / 60, ts[0] % 60)
+    }
+
+    /** Worth a nudge: today's forge still has room (with no limit, nothing went in yet today). */
+    fun due(all: List<Treasure>, s: Settings, now: Long, zone: ZoneId): Boolean {
+        val left = Forge.left(all, s, now, zone)
+        return if (left == null) Forge.usedToday(all, now, zone) == 0 else left > 0
+    }
+}

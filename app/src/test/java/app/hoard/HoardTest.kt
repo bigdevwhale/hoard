@@ -111,6 +111,22 @@ class HoardTest {
     }
 
     @Test
+    fun remindersSpreadOverTheWindow() {
+        val s = Settings(remindCount = 3, remindFrom = 12 * 60, remindTo = 20 * 60)
+        assertEquals(listOf(720, 960, 1200), app.hoard.domain.Reminders.times(s))
+        assertEquals(listOf(1200), app.hoard.domain.Reminders.times(s.copy(remindCount = 1)))
+        assertTrue(app.hoard.domain.Reminders.times(s.copy(remindCount = 0)).isEmpty())
+        assertEquals(LocalDateTime.of(2026, 10, 18, 16, 0), app.hoard.domain.Reminders.next(s, LocalDateTime.of(2026, 10, 18, 13, 5)))
+        assertEquals(LocalDateTime.of(2026, 10, 19, 12, 0), app.hoard.domain.Reminders.next(s, LocalDateTime.of(2026, 10, 18, 20, 0)))
+        // Only while today's forge has room.
+        val now = ms(2026, 10, 18, 15)
+        val two = listOf(t(1, ms(2026, 10, 18, 9)), t(2, ms(2026, 10, 18, 10)))
+        assertTrue(app.hoard.domain.Reminders.due(two, s, now, zone))
+        assertTrue(!app.hoard.domain.Reminders.due(two, s.copy(dailyLimit = 2), now, zone))
+        assertTrue(!app.hoard.domain.Reminders.due(two, s.copy(dailyLimit = 0), now, zone))
+    }
+
+    @Test
     fun skyFromWeatherCodes() {
         assertEquals(Sky.CLEAR, Sky.ofWmo(0))
         assertEquals(Sky.RAIN, Sky.ofWmo(61))

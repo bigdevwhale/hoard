@@ -16,7 +16,15 @@ import androidx.core.content.ContextCompat
 import app.hoard.MainActivity
 import app.hoard.R
 import app.hoard.container
+import app.hoard.domain.Forge
+import app.hoard.domain.Quests
+import app.hoard.domain.Reminders
 import app.hoard.localized
+import app.hoard.ui.T
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.ZoneId
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -24,12 +32,16 @@ import kotlinx.coroutines.launch
 
 /**
  * One notice when the forge cools (treasures are ready to unveil) and one when a sealed chest's day
- * comes. The alarm is set for the next of those moments; nothing else ever pings.
+ * comes. Separately, a few reminders a day (as many as the keeper chose) to catch a moment, only
+ * while today's forge has room.
  */
 object Alarms {
     private const val CHANNEL = "forge_v1"
     private const val ID = 3
     private const val ACTION = "app.hoard.notify.FORGE"
+    private const val CHANNEL_REMIND = "remind_v1"
+    private const val ID_REMIND = 4
+    private const val ACTION_REMIND = "app.hoard.notify.REMIND"
 
     fun canNotify(context: Context): Boolean =
         Build.VERSION.SDK_INT < 33 ||
@@ -45,7 +57,20 @@ object Alarms {
                 }
             )
         }
+        if (nm.getNotificationChannel(CHANNEL_REMIND) == null) {
+            nm.createNotificationChannel(
+                NotificationChannel(CHANNEL_REMIND, l.getString(R.string.channel_remind), NotificationManager.IMPORTANCE_DEFAULT).apply {
+                    description = l.getString(R.string.channel_remind_desc)
+                }
+            )
+        }
     }
+
+    private fun remindPi(context: Context) = PendingIntent.getBroadcast(
+        context, 2,
+        Intent(context, AlarmReceiver::class.java).setAction(ACTION_REMIND),
+        PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
+    )
 
     private fun pi(context: Context) = PendingIntent.getBroadcast(
         context, 1,
@@ -60,6 +85,12 @@ object Alarms {
         val p = pi(context)
         val now = System.currentTimeMillis()
         val all = c.db.dao().all()
+        val zone = ZoneId.systemDefault()
+        val remind = remindPi(context)
+        val nextRemind = if (s.onboarded) Reminders.next(s, LocalDateTime.now(zone)) else null
+        // A reminder doesn't need to-the-second precision either.
+        if (nextRemind == null) am.cancel(remind)
+        else am.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, nextRemind.atZone(zone).toInstant().toEpochMilli(), remind)
         val next = (all.filter { it.revealAt > now }.map { it.revealAt } + all.mapNotNull { it.sealedUntil }.filter { it > now }).minOrNull()
         if (!s.notify || !s.onboarded || next == null) {
             am.cancel(p)
@@ -67,6 +98,47 @@ object Alarms {
         }
         // The forge doesn't need to-the-second precision; this avoids the exact-alarm permission.
         am.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, next + 1000, p)
+    }
+
+    /** A nudge from the dragon to catch a moment, if today's forge still has room. */
+    suspend fun remind(context: Context) {
+        val c = context.container
+        val s = c.settings.now()
+        if (s.remindCount <= 0 || !s.onboarded || !canNotify(context)) return
+        val now = System.currentTimeMillis()
+        val zone = ZoneId.systemDefault()
+        val all = c.db.dao().all()
+        if (!Reminders.due(all, s, now, zone)) return
+        val l = context.localized()
+        val name = s.dragonName.ifBlank { l.getString(R.string.dragon_default) }
+        val day = LocalDate.now(zone)
+        val quest = Quests.active(day.toEpochDay())
+        val slot = Reminders.times(s).indexOfFirst { it >= LocalTime.now(zone).let { t -> t.hour * 60 + t.minute } - 5 }.coerceAtLeast(0)
+        val lines = l.resources.getStringArray(R.array.remind_lines)
+        // Every other reminder points at the gnomes' errand while it's open.
+        val title = if (quest.key !in s.claimed && slot % 2 == 1) l.getString(R.string.remind_quest, T.quest(l, quest.id))
+        else lines[Math.floorMod(day.toEpochDay() * 3 + slot, lines.size.toLong()).toInt()].format(name)
+        val left = Forge.left(all, s, now, zone)
+        val text = if (left == null) l.getString(R.string.remind_empty) else l.resources.getQuantityString(R.plurals.remind_left, left, left)
+        val n = NotificationCompat.Builder(context, CHANNEL_REMIND)
+            .setSmallIcon(R.drawable.ic_notification)
+            .setColor(ContextCompat.getColor(context, R.color.accent))
+            .setContentTitle(title)
+            .setContentText(text)
+            .setStyle(NotificationCompat.BigTextStyle().bigText(text))
+            .setContentIntent(
+                PendingIntent.getActivity(
+                    context, 101,
+                    Intent(context, MainActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP),
+                    PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
+                )
+            )
+            .setAutoCancel(true)
+            .build()
+        try {
+            NotificationManagerCompat.from(context).notify(ID_REMIND, n)
+        } catch (_: SecurityException) {
+        }
     }
 
     suspend fun fire(context: Context) {
@@ -106,18 +178,22 @@ object Alarms {
 
     fun clear(context: Context) = NotificationManagerCompat.from(context).cancel(ID)
 
+    /** Something went into the forge: an old "catch a moment" nudge no longer applies. */
+    fun clearReminder(context: Context) = NotificationManagerCompat.from(context).cancel(ID_REMIND)
+
     internal const val FORGE = ACTION
+    internal const val REMIND = ACTION_REMIND
 }
 
 private val receiverScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
 class AlarmReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
-        if (intent.action != Alarms.FORGE) return
+        if (intent.action != Alarms.FORGE && intent.action != Alarms.REMIND) return
         val pending = goAsync()
         receiverScope.launch {
             try {
-                Alarms.fire(context)
+                if (intent.action == Alarms.REMIND) Alarms.remind(context) else Alarms.fire(context)
                 context.container.changed()
             } finally {
                 pending.finish()
