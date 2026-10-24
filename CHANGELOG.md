@@ -1,5 +1,11 @@
 # Changelog
 
+<!--
+Telegram: end each version's section with a hidden block for the StillCraft chat. Start it with a
+line "<!-- tg", then 2-4 short lines in Russian for users (what is new, what is fixed), no markdown,
+then close it like any HTML comment. The release notes carry it, and the chat bot posts those lines.
+-->
+
 ## [1.1.0] - 2026-10-18
 
 - **The phone's own camera:** the forge now opens your phone's camera app for a photo or a clip up to five seconds, with everything it can do (zoom, focus, night mode). Hoard no longer asks for the camera or the microphone.
